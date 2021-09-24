@@ -1,4 +1,4 @@
-﻿namespace SealkeenJSON
+﻿namespace EPAM.CSCourse2016.SilkinIvan.SealkeenJSON
 {
     partial class Tree
     {
@@ -38,14 +38,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeView1.Location = new System.Drawing.Point(12, 12);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(514, 299);
+            this.treeView1.Size = new System.Drawing.Size(612, 128);
             this.treeView1.TabIndex = 0;
             // 
             // Tree
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(538, 323);
+            this.ClientSize = new System.Drawing.Size(636, 152);
             this.Controls.Add(this.treeView1);
             this.Name = "Tree";
             this.Text = "Tree";

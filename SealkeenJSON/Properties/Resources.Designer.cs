@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SealkeenJSON.Properties {
+namespace EPAM.CSCourse2016.SilkinIvan.SealkeenJSON.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace SealkeenJSON.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SealkeenJSON.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPAM.CSCourse2016.SilkinIvan.SealkeenJSON.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

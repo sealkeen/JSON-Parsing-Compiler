@@ -54,11 +54,9 @@ namespace SealkeenParser
             catch (Exception ex)
             {
                 if(source.Length != indexOfTheChar)
-                    //MessageBox.Show($"Unxpected symbol under index {indexOfTheChar}")
-                    ;
+                    Debug.WriteLine($"Unxpected symbol under index {indexOfTheChar}");
             }
         }
-
          
         public string ToTestString(string str)
         {

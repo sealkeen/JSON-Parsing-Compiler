@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SealkeenJSON.Properties {
+namespace EPAM.CSCourse2016.SilkinIvan.SealkeenJSON.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

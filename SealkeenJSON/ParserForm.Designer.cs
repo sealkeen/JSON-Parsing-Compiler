@@ -1,4 +1,4 @@
-﻿namespace SealkeenJSON
+﻿namespace EPAM.CSCourse2016.SilkinIvan.SealkeenJSON
 {
     partial class frmTest
     {
@@ -30,18 +30,19 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTest));
             this.txtMain = new System.Windows.Forms.TextBox();
-            this.btnTest = new System.Windows.Forms.Button();
             this.btnBuild = new System.Windows.Forms.Button();
-            this.btnTestCasting = new System.Windows.Forms.Button();
             this.txtTest = new System.Windows.Forms.TextBox();
             this.btnWhiteSpace = new System.Windows.Forms.Button();
             this.parserMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.creditsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnShowTree = new System.Windows.Forms.Button();
-            this.btnDoShit = new System.Windows.Forms.Button();
+            this.btnAlloc = new System.Windows.Forms.Button();
+            this.checkSpeed = new System.Windows.Forms.CheckBox();
+            this.btnClear = new System.Windows.Forms.Button();
             this.parserMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,16 +59,6 @@
             this.txtMain.Text = "Place your JSON here and press build";
             this.txtMain.TextChanged += new System.EventHandler(this.txtMain_TextChanged);
             // 
-            // btnTest
-            // 
-            this.btnTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTest.Location = new System.Drawing.Point(642, 431);
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(85, 23);
-            this.btnTest.TabIndex = 11;
-            this.btnTest.Text = "test";
-            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
-            // 
             // btnBuild
             // 
             this.btnBuild.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -75,21 +66,9 @@
             this.btnBuild.Name = "btnBuild";
             this.btnBuild.Size = new System.Drawing.Size(85, 23);
             this.btnBuild.TabIndex = 5;
-            this.btnBuild.Text = "build";
+            this.btnBuild.Text = "Build";
             this.btnBuild.UseVisualStyleBackColor = true;
             this.btnBuild.Click += new System.EventHandler(this.btnBuild_Click);
-            // 
-            // btnTestCasting
-            // 
-            this.btnTestCasting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTestCasting.Enabled = false;
-            this.btnTestCasting.Location = new System.Drawing.Point(642, 402);
-            this.btnTestCasting.Name = "btnTestCasting";
-            this.btnTestCasting.Size = new System.Drawing.Size(85, 23);
-            this.btnTestCasting.TabIndex = 6;
-            this.btnTestCasting.Text = "cast";
-            this.btnTestCasting.UseVisualStyleBackColor = true;
-            this.btnTestCasting.Click += new System.EventHandler(this.btnTestCasting_Click);
             // 
             // txtTest
             // 
@@ -109,7 +88,7 @@
             this.btnWhiteSpace.Name = "btnWhiteSpace";
             this.btnWhiteSpace.Size = new System.Drawing.Size(85, 23);
             this.btnWhiteSpace.TabIndex = 8;
-            this.btnWhiteSpace.Text = "Whitespaces";
+            this.btnWhiteSpace.Text = "White Spaces";
             this.btnWhiteSpace.UseVisualStyleBackColor = true;
             this.btnWhiteSpace.Click += new System.EventHandler(this.btnWhiteSpace_Click);
             // 
@@ -142,16 +121,24 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.creditsToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
+            // creditsToolStripMenuItem
+            // 
+            this.creditsToolStripMenuItem.Name = "creditsToolStripMenuItem";
+            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+            this.creditsToolStripMenuItem.Text = "Credits";
+            this.creditsToolStripMenuItem.Click += new System.EventHandler(this.creditsToolStripMenuItem_Click);
+            // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.aboutToolStripMenuItem.Text = "How to use guideline";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+            this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // btnShowTree
@@ -161,32 +148,57 @@
             this.btnShowTree.Name = "btnShowTree";
             this.btnShowTree.Size = new System.Drawing.Size(85, 23);
             this.btnShowTree.TabIndex = 13;
-            this.btnShowTree.Text = "Show tree";
+            this.btnShowTree.Text = "Show Tree";
             this.btnShowTree.UseVisualStyleBackColor = true;
             this.btnShowTree.Click += new System.EventHandler(this.showTree_Click);
             // 
-            // btnDoShit
+            // btnAlloc
             // 
-            this.btnDoShit.Location = new System.Drawing.Point(642, 127);
-            this.btnDoShit.Name = "btnDoShit";
-            this.btnDoShit.Size = new System.Drawing.Size(85, 23);
-            this.btnDoShit.TabIndex = 14;
-            this.btnDoShit.Text = "Do shit";
-            this.btnDoShit.UseVisualStyleBackColor = true;
-            this.btnDoShit.Click += new System.EventHandler(this.btnDoShit_Click);
+            this.btnAlloc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAlloc.Enabled = false;
+            this.btnAlloc.Location = new System.Drawing.Point(642, 431);
+            this.btnAlloc.Name = "btnAlloc";
+            this.btnAlloc.Size = new System.Drawing.Size(85, 23);
+            this.btnAlloc.TabIndex = 15;
+            this.btnAlloc.Text = "Speed test";
+            this.btnAlloc.UseVisualStyleBackColor = true;
+            this.btnAlloc.Click += new System.EventHandler(this.btnAlloc_Click);
+            // 
+            // checkSpeed
+            // 
+            this.checkSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkSpeed.AutoSize = true;
+            this.checkSpeed.Location = new System.Drawing.Point(642, 395);
+            this.checkSpeed.Name = "checkSpeed";
+            this.checkSpeed.Size = new System.Drawing.Size(98, 30);
+            this.checkSpeed.TabIndex = 18;
+            this.checkSpeed.Text = "UNSAFE! \r\ndo not use this!";
+            this.checkSpeed.UseVisualStyleBackColor = true;
+            this.checkSpeed.CheckedChanged += new System.EventHandler(this.checkSpeed_CheckedChanged);
+            // 
+            // btnClear
+            // 
+            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClear.Location = new System.Drawing.Point(642, 221);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(85, 23);
+            this.btnClear.TabIndex = 19;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // frmTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(739, 466);
-            this.Controls.Add(this.btnDoShit);
+            this.Controls.Add(this.btnClear);
+            this.Controls.Add(this.checkSpeed);
+            this.Controls.Add(this.btnAlloc);
             this.Controls.Add(this.btnShowTree);
             this.Controls.Add(this.btnWhiteSpace);
             this.Controls.Add(this.txtTest);
-            this.Controls.Add(this.btnTestCasting);
             this.Controls.Add(this.btnBuild);
-            this.Controls.Add(this.btnTest);
             this.Controls.Add(this.txtMain);
             this.Controls.Add(this.parserMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -204,9 +216,7 @@
 
         #endregion
         private System.Windows.Forms.TextBox txtMain;
-        private System.Windows.Forms.Button btnTest;
         private System.Windows.Forms.Button btnBuild;
-        private System.Windows.Forms.Button btnTestCasting;
         private System.Windows.Forms.TextBox txtTest;
         private System.Windows.Forms.Button btnWhiteSpace;
         private System.Windows.Forms.MenuStrip parserMenu;
@@ -215,6 +225,9 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.Button btnShowTree;
-        private System.Windows.Forms.Button btnDoShit;
+        private System.Windows.Forms.Button btnAlloc;
+        private System.Windows.Forms.CheckBox checkSpeed;
+        private System.Windows.Forms.ToolStripMenuItem creditsToolStripMenuItem;
+        private System.Windows.Forms.Button btnClear;
     }
 }

@@ -1,8 +1,14 @@
-﻿using System.Windows.Forms;
+﻿//CREATED BY SILKIN IVAN FOR EPAM TRAINING COURSES ONLY
+//THIS PRODUCT IS NOT COVERED BY ANY LICENSE AND GIVEN YOU
+//"AS IS". DESPITE THAT, YOU ARE NOT ALLOWED TO USE THIS
+//SIGNATURE IF YOU MODIFIED ANY PART OF THE PROGRAM WITHOUT
+//MY PERSONAL AGREEMENT SO BE CAREFUL NOT TO SIGN YOUR
+//MODIFICATION USING MY SIGNATURE, IT WOULD BE UNFAIR!
+//                2016 EPAM TRAINING.
 
-using SealkeenParser;
+using System.Windows.Forms;
 
-namespace SealkeenJSON
+namespace EPAM.CSCourse2016.SilkinIvan.SealkeenJSON
 {
     public partial class Tree : Form
     {
@@ -22,7 +28,7 @@ namespace SealkeenJSON
         {
             this.Text = jitem.ToString();
             this.Jitem = jitem;
-            this.Jitem.Items.ForEach(x => this.Nodes.Add(new JItemNode(x)));
+            this.Jitem.items.ForEach(x => this.Nodes.Add(new JItemNode(x)));
         }
 
         public JItem Jitem

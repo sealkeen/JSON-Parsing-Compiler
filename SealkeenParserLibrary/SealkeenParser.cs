@@ -1,385 +1,367 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//CREATED BY SILKIN IVAN FOR EPAM TRAINING COURSES ONLY
+//THIS PRODUCT IS NOT COVERED BY ANY LICENSE AND GIVEN YOU
+//"AS IS". DESPITE THAT, YOU ARE NOT ALLOWED TO USE THIS
+//SIGNATURE IF YOU MODIFIED ANY PART OF THE PROGRAM WITHOUT
+//MY PERSONAL AGREEMENT SO BE CAREFUL NOT TO SIGN YOUR
+//MODIFICATION USING MY SIGNATURE, IT WOULD BE UNFAIR!
+//                2016 EPAM TRAINING.
 
-namespace SealkeenParser
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Text;
+using EPAM.CSCourse2016.ParserPerfTester.Common;
+
+namespace EPAM.CSCourse2016.SilkinIvan.SealkeenJSON
 {
+    //Represents methods to parse JSON
     public class SealkeenParserClass : IParser
     {
         //Token characters
-        public static Stack<char> syntaxChars = new Stack<char>();
-        //This stack contains all of the items
-        public static Stack<JItem> itemStack = new Stack<JItem>();
-        //This stack contains Key : Value pair objects
-        public static Stack<JItem> keyValueStack = new Stack<JItem>();
+        private static List<char> syntaxChars = new List<char>();
+        //This list contains all of the items
+        private static List<JItem> itemList = new List<JItem>();
+        //This list contains Key : Value pair objects
+        private static List<JItem> keyValueList = new List<JItem>();
 
         //Current item we are using to add items in
-        private JItem currentItem = new JItem { root = true, isObject = true, isArray = false, Parent = null };
-        private JItem currentKV = new JKeyValuePair { };
+        private JItem currentItem = new JItem { jType = ItemType.Object};
+        private JItem currentKV = new JKeyValuePair { jType = ItemType.KeyValue};
 
-        public JItem GetCurrentItem
-        {
-            get { return currentItem; }
-        }
+        //Buffer string for values and items
+        private static StringBuilder buffer = new StringBuilder("");
 
-        //one of the buffers of a top model
-        static string buffer = "";
+        //Source string
+        private static StringBuilder source;
 
-        //исходная строка
-        static string source;
-
-        //it's too dangerouse here, run forest
+        //Do not delete this variable despite the warning!
         bool runFromOutside = false;
-        //the pentagon secret should have to be inside of the quotes
+        //While we are  inside quotes - we add our character to the Buffer (Without checking it for syntax token belonging)
         bool insideQuotes = false;
         //We expect some pentagon secrets to be inside the JSON value if true
         bool pending4Value = false;
-
         //Count of pentagon secrets
         private int indexOfTheChar = -1;
-        
+
         //Parse inside of this class
         private void InnerParse()
         {
             try
             {
-                for (int c = 0; c < source.Length; c++)
+                for (int c = indexOfTheChar; c < source.Length; c++)
                 {
                     StartParse();
                 }
             }
-            catch (Exception ex)
+            catch 
             {
-                if(source.Length != indexOfTheChar)
-                    //MessageBox.Show($"Unxpected symbol under index {indexOfTheChar}")
-                    ;
+                if (source.Length > (indexOfTheChar+1)) //if inccorrect symbol is inside of the string
+                {
+                    Debug.WriteLine($"Unexpected symbol under index: {indexOfTheChar}. Total Length : {source.Length}");
+                    InnerParse();
+                }
+            }
+            if (itemList.Count == 1 && keyValueList.Count == 1)
+            {
+                currentItem = itemList[itemList.Count-1];
+                if (currentItem.items.Count == 0 && currentItem.items.Count == 0)
+                {
+                    currentItem.items.Clear(); 
+                    currentItem.items.Add(new JItem { contents = buffer.Replace(" ", "").ToString(), jType = ItemType.SingleValue , parent = currentItem} );
+                    buffer.Clear();
+                }
             }
         }
-
          
         public string ToTestString(string str)
         {
             runFromOutside = true;
-            source = str;
+            source = new StringBuilder(str);
             InitializeStructure();
             InnerParse();
             FindRoot();
-
             return currentItem.ToString();
         }
 
-        //Find the meaning of life
+        public JItem GetCurrentItem()
+        {
+            return currentItem;
+        }
+
+        //Find root object
         private void FindRoot()
         {
-            while (currentItem.Parent != null)
+            while (currentItem.parent != null)
             {
-                currentItem = currentItem.Parent;
+                currentItem = currentItem.parent;
             }
         }
 
-        //The starting point of fun
+        //Initialize inner structure
         private void InitializeStructure()
         {
-            JKeyValuePair newPair = new JKeyValuePair { Parent = null };
-            JItem Root = new JItem { root = true, isObject = true, isArray = false, Parent = null };
-            keyValueStack.Push(newPair);
-            itemStack.Push(Root);
+
+            JKeyValuePair newPair = new JKeyValuePair { parent = null };
+            JItem Root = new JItem { jType = ItemType.Root };
+            keyValueList.Clear();
+            itemList.Clear();
+            syntaxChars.Clear();
+
+            keyValueList.Add(newPair);
+            itemList.Add(Root);
+            syntaxChars.Add(',');
 
             indexOfTheChar = -1;
-            syntaxChars.Clear();
-            syntaxChars.Push(',');
-            currentItem = new JItem();
-            InnerParse();
+            currentItem = Root;
         }
+
 
         /// <summary>
         /// The Main Big Parsing Method
         /// </summary>
-        /// 
         private void StartParse()
         {
-            //index of top secret pentagon data
+            //The index inside the Source string  
             ++indexOfTheChar;
-            try
+
+            //If the symbol is inside quotes, we append it to Buffer without creating objects
+            if (insideQuotes)
             {
-                if (syntaxChars?.Peek() == '\"' && insideQuotes)
+                if (syntaxChars[syntaxChars.Count-1] == '\"')
                 {
                     if (source[indexOfTheChar] == '\"')
                     {
-                        buffer += source[indexOfTheChar];
+                        buffer.Append(source[indexOfTheChar]);
                         insideQuotes = false;
                         return;
                     }
-                    buffer += source[indexOfTheChar];
+                    buffer.Append(source[indexOfTheChar]);
                     return;
                 }
             }
-            catch { /*MessageBox.Show("Дирижабль");*/ }
-
-            switch (source[indexOfTheChar])
-            {
-                case '{':
-                    currentItem = itemStack.Peek();
-                    currentKV = keyValueStack.Peek();
-                    //Проверка на ожидание инициализации значения Value пары KeyValue 
-                    if (pending4Value)
-                    {
-                        JItem item = new JItem { isObject = true };
-                        item.Parent = currentItem;
-                        ((JKeyValuePair)currentKV).Value = item;
-                        buffer = "";
-                        keyValueStack.Push(item);
-                        itemStack.Push(item);
-                    }
-                    else
-                    {
-                        JItem nItm = new JItem { isObject = true };
-                        currentItem.Items.Add(nItm);
-                        nItm.Parent = currentItem;
-                        itemStack.Push(nItm);
-                    }
-
-                    pending4Value = false;
-                    break;
-                case '}':
-                    currentKV = keyValueStack.Peek();
-                    currentItem = itemStack.Peek();
-                    if (pending4Value)
-                    {
-                        JItem item = new JItem();
-                        item.Parent = currentItem;
-                        item.contents = buffer;
-                        ((JKeyValuePair)currentKV).Value = item;
-                        buffer = "";
-                        keyValueStack.Pop();
-                    }
-                    currentItem = itemStack.Pop();
-                    pending4Value = false;
-                    break;
-                case '[':
-                    currentItem = itemStack.Peek();
-                    currentKV = keyValueStack.Peek();
-                    //Проверка на ожидание инициализации значения Value пары KeyValue 
-                    if (pending4Value)
-                    {
-                        JItem item = new JItem { isObject = false, isArray = true };
-                        item.Parent = currentItem;
-                        ((JKeyValuePair)currentKV).Value = item;
-                        buffer = "";
-                        keyValueStack.Push(item);
-                        itemStack.Push(item);
-                    }
-                    else
-                    {
-                        JItem nItm = new JItem { isObject = false, isArray = true };
-                        currentItem.Items.Add(nItm);
-                        nItm.Parent = currentItem;
-                        itemStack.Push(nItm);
-                    }
-
-                    pending4Value = false;
-                    break;
-                case ']':
-                    currentKV = keyValueStack.Peek();
-                    currentItem = itemStack.Peek();
-                    if (pending4Value)
-                    {
-                        JItem item = new JItem { singleValue = true };
-                        item.Parent = currentItem;
-                        item.contents = buffer;
-                        ((JKeyValuePair)currentKV).Value = item;
-                        buffer = "";
-                        keyValueStack.Pop();
-                    }
-                    else
-                    {
-                        if (!string.IsNullOrWhiteSpace(buffer))
-                        {
-                            currentItem.Items.Add(new JItem { contents = buffer, singleValue = true });
-                            buffer = "";
-                        }
-                    }
-                    //currentItem = currentItem.Parent;
-                    currentItem = itemStack.Pop();
-                    pending4Value = false;
-                    break;
-                case ':':
-                    currentKV = keyValueStack.Peek();
-                    currentItem = itemStack.Peek();
-                    syntaxChars.Push(':');
-                    if (!pending4Value)
-                    {
-                        JKeyValuePair pair = new JKeyValuePair();
-                        pair.Key = new JItem { singleValue = true };
-                        pair.Key.contents = buffer;
-                        pair.Parent = currentItem;
-                        currentItem.Items.Add(pair);
-                        keyValueStack.Push(pair);
-                    }
-                    else
-                    {
-                        //throw new InvalidEnumArgumentException(); //не было более подходящего, лел
-                    }
-                    pending4Value = true;
-                    buffer = "";
-                    break;
-                case ',':
-                    currentKV = keyValueStack.Peek();
-                    try { currentItem = itemStack.Peek(); }
-                    catch { }
-                    if (pending4Value)
-                    {
-                        JItem jI = new JItem { singleValue = true, contents = buffer, Parent = currentItem };
-                        ((JKeyValuePair)currentKV).Value = jI;
-                        keyValueStack.Pop();
-                    }
-                    else
-                    {
-                        if (!string.IsNullOrWhiteSpace(buffer))
-                        {
-                            currentItem.Items.Add(new JItem { contents = buffer, singleValue = true });
-                            buffer = ""; return;
-                        }
-                    }
-                    pending4Value = false;
-                    syntaxChars.Push(',');
-                    buffer = "";
-
-                    break;
-                case '\"':
-                    buffer += source[indexOfTheChar];
-                    syntaxChars.Push('\"');
-                    insideQuotes = !insideQuotes;
-                    break;
-                case ' ':
-                case '\t':
-                case '\r':
-                case '\n':
-                    break;
-
-                default:
-                    buffer += source[indexOfTheChar];
-                    break;
-            }
-        }
-    }
-
-    public class JItem 
-    {
-        public List<JItem> Items = new List<JItem>();
-        public JItem LastChild { get; set; } = null;
-        public JItem Parent { get; set; } = null;
-        public string contents;
-        public bool singleValue = false;
-        public bool root;
-        public bool isArray;
-        public bool isObject;
-        //public JSNParentType ParentType { get; set; } = JSNParentType.None;
-
-        public override string ToString()
-        {
-            string str = "";
-            if (singleValue)
-                str += contents;
             else
             {
-                if (isArray)
+                switch (source[indexOfTheChar])
                 {
-                    str += '[';
-                    try
-                    {
-                        for (int i = 0; i < Items.Count; ++i)
+                    case '{':
+                        currentItem = itemList[itemList.Count-1];
+                        if (pending4Value) //Check if our key:value pair expects value
                         {
-                            if (Items[i].singleValue)
-                            {
-                                str += $"{Items[i].contents}";
-                            }
-                            else
-                            {
-                                if (Items[i].isObject)
-                                {
-                                    str += "{";
-                                    str += (Items[i].ToString());
-                                    //str += ((Items.Count - 1 == i) ? "" : ",");
-                                    str += "}";
-                                }
-                                else
-                                    if (Items[i].isArray)
-                                {
-                                    str += "[";
-                                    str += (Items[i].ToString());
-                                    str += "]";
-                                }
-                            }
-                            str += ((Items.Count - 1 == i) ? "" : ",");
-                        }
-                    }
-                    catch { }
-                    str += ']';
-                }
-                else
-                {
-                    if (Items.Count == 0)
-                    {
-                        str += contents;
-                    }
-                    else
-                    {
-                        if (this is JKeyValuePair)
-                        {
-                            if ((this as JKeyValuePair).Value.isObject)
-                                str += $"{(this as JKeyValuePair).Key.ToString()}:{{{(this as JKeyValuePair).Value.ToString()}}}";
-                            else
-                            {
-                                if ((this as JKeyValuePair).Value.isArray)
-                                    str += $"{(this as JKeyValuePair).Key.ToString()}:{(this as JKeyValuePair).Value.ToString()}";
-                                else
-                                {
-                                    str += $"{(this as JKeyValuePair).Key.ToString()}:{(this as JKeyValuePair).Value.ToString()}";
-                                }
-                            }
+                            JItem item = new JItem { jType = ItemType.Object };
+                            item.parent = currentItem;
+                            ((JKeyValuePair)keyValueList[keyValueList.Count-1]).Value = item;
+                            buffer.Clear();
+                            keyValueList.Add(item);
+                            itemList.Add(item);
+                            pending4Value = false;
                         }
                         else
                         {
-                            for (int i = 0; i < Items.Count; ++i)
+                            JItem nItm = new JItem { jType = ItemType.Object };
+                            currentItem.items.Add(nItm);
+                            nItm.parent = currentItem;
+                            itemList.Add(nItm);
+                        }
+                        break;
+                    case '}':
+                        if (pending4Value)  //Check if our key:value pair expects value
+                        {
+                            JItem item = new JItem { jType = ItemType.SingleValue };
+                            item.parent = itemList[itemList.Count-1];
+                            item.contents = buffer.ToString();
+                            ((JKeyValuePair)keyValueList[keyValueList.Count-1]).Value = item;
+                            buffer.Clear();
+                            keyValueList.RemoveAt(keyValueList.Count-1);
+                            pending4Value = false;
+                        }
+                        else
+                        {
+                            if (!string.IsNullOrWhiteSpace(buffer.ToString()))
                             {
-                                if ((Items[i].isObject) && !Items[i].isArray)
-                                    str += "{" + Items[i].ToString() + "}";
-                                else
-                                    str += Items[i].ToString();
-
-                                str += ((Items.Count - 1 == i) ? "" : ",");
+                                itemList[itemList.Count-1].items.Add(new JItem { jType = ItemType.SingleValue, contents = buffer.ToString() });
+                                buffer.Clear();
                             }
                         }
-                    }
+                        itemList.RemoveAt(itemList.Count-1);
+                        break;
+                    case '[':
+                        currentItem = itemList[itemList.Count-1];
+                        //Проверка на ожидание инициализации значения Value пары KeyValue 
+                        if (pending4Value) //Check if our key:value pair expects value
+                        {
+                            JItem item = new JItem { jType = ItemType.Array };
+                            item.parent = currentItem;
+                            ((JKeyValuePair)keyValueList[keyValueList.Count-1]).Value = item;
+                            buffer.Clear();
+                            keyValueList.Add(item);
+                            itemList.Add(item);
+                            pending4Value = false;
+                        }
+                        else
+                        {
+                            JItem nItm = new JItem { jType = ItemType.Array };
+                            currentItem.items.Add(nItm);
+                            nItm.parent = currentItem;
+                            itemList.Add(nItm);
+                        }
+                        break;
+                    case ']':
+                        if (pending4Value) //Check if our key:value pair expects value
+                        {
+                            JItem item = new JItem { jType = ItemType.SingleValue };
+                            item.parent = itemList[itemList.Count-1];
+                            item.contents = buffer.ToString();
+                            ((JKeyValuePair)keyValueList[keyValueList.Count-1]).Value = item;
+                            buffer.Clear();
+                            keyValueList.RemoveAt(keyValueList.Count-1);
+                        }
+                        else
+                        {
+                            if (!string.IsNullOrWhiteSpace(buffer.ToString()))
+                            {
+                                itemList[itemList.Count-1].items.Add(new JItem { jType = ItemType.SingleValue, contents = buffer.ToString() });
+                                buffer.Clear();
+                            }
+                        }
+                        //currentItem = currentItem.Parent;
+                        itemList.RemoveAt(itemList.Count-1);
+                        pending4Value = false;
+                        break;
+                    case ':':
+                        currentKV = keyValueList[keyValueList.Count-1];
+                        currentItem = itemList[itemList.Count-1];
+                        syntaxChars.Add(':');
+                        if (!pending4Value)
+                        {
+                            JKeyValuePair pair = new JKeyValuePair { jType = ItemType.KeyValue};
+                            pair.Key = new JItem { jType = ItemType.SingleValue };
+                            pair.Key.contents = buffer.ToString();
+                            pair.parent = currentItem;
+                            currentItem.items.Add(pair);
+                            keyValueList.Add(pair);
+                        }
+                        else
+                        {
+                            //throw new InvalidEnumArgumentException(); //не было более подходящего, лел
+                        }
+                        pending4Value = true;
+                        buffer.Clear();
+                        break;
+                    case ',':
+                        currentKV = keyValueList[keyValueList.Count-1];
+                        if (pending4Value)
+                        {
+                            JItem jI = new JItem { jType = ItemType.SingleValue, contents = buffer.ToString(), parent = itemList[itemList.Count-1] };
+                            ((JKeyValuePair)currentKV).Value = jI;
+                            keyValueList.RemoveAt(keyValueList.Count-1);
+                            pending4Value = false;
+                        }
+                        else
+                        {
+                            if (!string.IsNullOrWhiteSpace(buffer.ToString()))
+                            {
+                                itemList[itemList.Count-1].items.Add(new JItem { contents = buffer.ToString(), jType = ItemType.SingleValue });
+                                buffer.Clear(); return;
+                            }
+                        }
+                        syntaxChars.Add(',');
+                        buffer.Clear();
+                        break;
+                    case '\"':
+                        buffer.Append(source[indexOfTheChar]);
+                        syntaxChars.Add('\"');
+                        insideQuotes = !insideQuotes;
+                        break;
+                    case ' ':
+                    case '\t':
+                    case '\r':
+                    case '\n':
+                        break;
+                    default:
+                        buffer.Append(source[indexOfTheChar]);
+                        break;
                 }
             }
-            return str;
         }
     }
 
-    //Class of Key/Value Pair for JSON
+    //Represents the structure of a JSON document
+    public class JItem 
+    {
+        public List<JItem> items = new List<JItem>();
+        public JItem parent = null;
+        public string contents;
+        public ItemType jType = ItemType.Object;
+
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder();
+            BuildString(ref builder);
+            return builder.ToString();
+        }
+
+        public void BuildString(ref StringBuilder builder)
+        {
+            switch (jType)
+            {
+                case ItemType.SingleValue:  //If our item is a Single Value
+                    builder.Append(contents);
+                    break;
+                case ItemType.Object:       //If our item is an object { }
+                    builder.Append("{");
+                    for (int i = 0; i < items.Count; ++i)
+                    {
+                        items[i].BuildString(ref builder);
+                        builder.Append(((items.Count - 1 == i) ? "" : ","));
+                    }
+                    builder.Append("}");
+                    break;
+                case ItemType.KeyValue:     //If our item is a "key":"value" pair key
+                    var pair = (this as JKeyValuePair);
+                    pair.Key.BuildString(ref builder);
+                    builder.Append(":");
+                    pair.Value.BuildString(ref builder);
+                    break;
+                case ItemType.Array:        //If our item is an array
+                    builder.Append("[");
+                    for (int i = 0; i < items.Count; ++i)
+                    {
+                        items[i].BuildString(ref builder);
+                        builder.Append(((items.Count - 1 == i) ? "" : ","));
+                    }
+                    builder.Append("]");
+                    break;
+                case ItemType.Root:
+                    for (int i = 0; i < items.Count; ++i)
+                    {
+                        items[i].BuildString(ref builder);
+                        builder.Append(((items.Count - 1 == i) ? "" : ","));
+                    }
+                    break;
+            }
+        }
+    }
+
+    //Represents the structure of a key:value pair
     public class JKeyValuePair : JItem
     {
         public JItem Key
         {
-            get { return Items[0]; }
+            get { try { return items[0]; } catch { return new JItem { contents = "ExceptionKey" }; } }
             set
             {
-                Items.Add(value);
+                items.Add(value);
             }
         }
         public JItem Value
         {
-            get { try { return Items[1]; } catch { return new JItem { contents = "Exception" }; } }
+            get { try { return items[1]; } catch { return new JItem { contents = "ExceptionValue" }; } }
             set
             {
-                Items.Add(value);
+                items.Add(value);
             }
         }
     }
 
-    public interface IParser
-    {
-        string ToTestString(string json);
-    }
+    public enum ItemType : byte { SingleValue, Array, Object, KeyValue, Root }
 }
