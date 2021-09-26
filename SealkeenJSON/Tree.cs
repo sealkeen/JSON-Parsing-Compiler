@@ -7,6 +7,8 @@
 //                2016 EPAM TRAINING.
 
 using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EPAM.CSCourse2016.SilkinIvan.SealkeenJSON
 {
@@ -28,7 +30,9 @@ namespace EPAM.CSCourse2016.SilkinIvan.SealkeenJSON
         {
             this.Text = jitem.ToString();
             this.Jitem = jitem;
-            this.Jitem.items.ForEach(x => this.Nodes.Add(new JItemNode(x)));
+            List<JItem> nodes = new List<JItem>();
+            jitem.ListAllNodes(ref nodes);
+            nodes.ForEach(x => this.Nodes.Add(new JItemNode(x)));
         }
 
         public JItem Jitem

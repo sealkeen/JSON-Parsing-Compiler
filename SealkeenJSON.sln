@@ -1,13 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.CSCourse2016.SilkinIvan.SealkeenJSON.Parser", "SealkeenJSON\EPAM.CSCourse2016.SilkinIvan.SealkeenJSON.Parser.csproj", "{9443CABA-5022-4675-95C7-2BFF73AD080B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.CSCourse2016.SilkinIvan.SealkeenJSON.SealkeenParserLibrary", "SealkeenParserLibrary\EPAM.CSCourse2016.SilkinIvan.SealkeenJSON.SealkeenParserLibrary.csproj", "{302B91F3-1D2D-4B20-86FF-CC4D37FC3E80}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPAM.CSCourse2016.ParserPerfTester.Common", "EPAM_CSCourse2016_ParserPerfTester_Common\EPAM.CSCourse2016.ParserPerfTester.Common\EPAM.CSCourse2016.ParserPerfTester.Common.csproj", "{49D79469-BB52-416F-BC85-31B77FC11B69}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JSONParserLibrary", "JSONParserLibrary\JSONParserLibrary.csproj", "{C772D2E3-3F7E-457A-9991-F1E9DF10980E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSONParserUnitTests", "UnitTest\JSONParserUnitTests.csproj", "{04824198-B037-4121-B678-92F8F8E4BE8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,8 +45,27 @@ Global
 		{49D79469-BB52-416F-BC85-31B77FC11B69}.Release|Any CPU.Build.0 = Release|Any CPU
 		{49D79469-BB52-416F-BC85-31B77FC11B69}.Release|x86.ActiveCfg = Release|Any CPU
 		{49D79469-BB52-416F-BC85-31B77FC11B69}.Release|x86.Build.0 = Release|Any CPU
+		{C772D2E3-3F7E-457A-9991-F1E9DF10980E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C772D2E3-3F7E-457A-9991-F1E9DF10980E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C772D2E3-3F7E-457A-9991-F1E9DF10980E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C772D2E3-3F7E-457A-9991-F1E9DF10980E}.Debug|x86.Build.0 = Debug|Any CPU
+		{C772D2E3-3F7E-457A-9991-F1E9DF10980E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C772D2E3-3F7E-457A-9991-F1E9DF10980E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C772D2E3-3F7E-457A-9991-F1E9DF10980E}.Release|x86.ActiveCfg = Release|Any CPU
+		{C772D2E3-3F7E-457A-9991-F1E9DF10980E}.Release|x86.Build.0 = Release|Any CPU
+		{04824198-B037-4121-B678-92F8F8E4BE8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04824198-B037-4121-B678-92F8F8E4BE8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04824198-B037-4121-B678-92F8F8E4BE8D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{04824198-B037-4121-B678-92F8F8E4BE8D}.Debug|x86.Build.0 = Debug|Any CPU
+		{04824198-B037-4121-B678-92F8F8E4BE8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04824198-B037-4121-B678-92F8F8E4BE8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04824198-B037-4121-B678-92F8F8E4BE8D}.Release|x86.ActiveCfg = Release|Any CPU
+		{04824198-B037-4121-B678-92F8F8E4BE8D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3E6B509D-3463-41D8-82D0-4FFF25022CD7}
 	EndGlobalSection
 EndGlobal

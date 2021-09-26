@@ -96,7 +96,7 @@ namespace EPAM.CSCourse2016.SilkinIvan.SealkeenJSON
         {
             try
             {
-                if (sPC.GetCurrentItem() != null && sPC.GetCurrentItem().items.Count != 0)
+                if (sPC.GetCurrentItem() != null && sPC.GetCurrentItem().HasItems())
                 {
                     ThreadStart tS;
                     tS = new ThreadStart(delegate { Application.Run(new Tree((sPC.GetCurrentItem()))); });
