@@ -139,24 +139,12 @@ namespace EPAM.CSCourse2016.JSONParser.Library
                 return;
             switch (symbol)
             {
-                case '{':
-                    HandleCurlyBracket();
-                    break;
-                case '}':
-                    HandleClosingCurlyBracket();
-                    break;
-                case '[':
-                    HandleSquareBracket();
-                    break;
-                case ']':
-                    HandleClosingSquareBracket();
-                    break;
-                case ':':
-                    HandleColon();
-                    break;
-                case ',':
-                    HandleComma();
-                    break;
+                case '{': HandleCurlyBracket(); break;
+                case '}': HandleClosingCurlyBracket();  break;
+                case '[': HandleSquareBracket(); break;
+                case ']': HandleClosingSquareBracket(); break;
+                case ':': HandleColon(); break;
+                case ',': HandleComma(); break;
                 case '\"':
                     _JItemContentsBuffer.Append(_sourceString[_indexOfTheChar]);
                     _syntaxChars.Push('\"');
