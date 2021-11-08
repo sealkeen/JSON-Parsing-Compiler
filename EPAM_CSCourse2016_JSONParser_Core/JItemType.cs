@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JSONParserLibrary
+﻿namespace EPAM.CSCourse2016.SilkinIvan.JSONParser
 {
-    //class JItemType
-    //{
-    //    public enum JItemType : byte { SingleValue, Array, Object, KeyValue, Root }
-    //}
-    public enum JItemType : byte { SingleValue, Array, Object, KeyValue, Root }
+    public enum JItemType : byte { SingleValue, String, Collection, Array, Object, KeyValue, Root }
 }

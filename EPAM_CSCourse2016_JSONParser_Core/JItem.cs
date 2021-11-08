@@ -1,44 +1,115 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace JSONParserLibrary
+namespace EPAM.CSCourse2016.SilkinIvan.JSONParser
 {
     //Represents the structure of a JSON document
-    public class JItem
+    public abstract class JItem
     {
-        public List<JItem> Items = new List<JItem>();
+        protected List<JItem> Items;
         public JItem Parent = null;
-        public string Contents;
-        public JItemType jType = JItemType.Object;
-        public virtual void ParseJItem(JItem currentJItem, char symbol, bool pending4Value)
+        bool built = false;
+        public JItem(JItem parent = null)
         {
-            
-        }
-
-        public JItem(JItemType itemType, string contents = "", JItem parent = null)
-        {
-            jType = itemType;
-            Contents = contents;
             Parent = parent;
         }
-        public bool ToFile(string filename)
+        public bool ToFile(string filename, bool rewrite = false)
         {
-            if (!File.Exists(filename))
+            StreamWriter sW;
+            if (File.Exists(filename) && rewrite)
             {
-                StreamWriter sW = new StreamWriter(filename);
-                sW.Write(ToString());
-                sW.Close();
-                return true;
+                sW =  new StreamWriter(filename, !rewrite);
             }
+            sW = new StreamWriter(filename, rewrite);
+            sW.Write(ToString());
+            sW.Close();
+            return true;
+        }
+        public static JSingleValue Factory(JItemType itemType, string value)
+        {
+            switch (itemType)
+            {
+                case JItemType.SingleValue:
+                    return new JSingleValue(value);
+                case JItemType.String:
+                    return new JString(value);
+            }
+            return null;
+        }
+
+        public JItem FindContainerOrReturnParent(JSingleValue jSingleValue)
+        {
+            var container = this.Parent;
+            while (container != null)
+            {
+                if (container.Contains(jSingleValue))
+                    return container;
+                container = container.Parent;
+            }
+            return this.Parent;
+        }
+        public void ListAllNodes(ref List<JItem> nodes)
+        {
+            if (Items == null)
+            {
+                Items = new List<JItem>();
+            }
+            foreach (var jItem in Items)
+            {
+                jItem.ListAllNodes(ref nodes);
+                nodes.Add(jItem);
+            }
+        }
+
+        public virtual bool Equals(JItem jitem)
+        {
+            return false;
+        }
+        public virtual bool Contains(JSingleValue jItem)
+        {
             return false;
         }
 
-        public virtual bool Add(JItem jItem)
+        public virtual bool ContainsIntegerValue()
         {
-            Items.Add(jItem);
-            return true;
+            return false;
+        }
+
+        public virtual bool ContainsDateTimeValue()
+        {
+            return false;
+        }
+
+        public virtual int? GetIntegerValueOrReturnNull()
+        {
+            return null;
+        }
+        public virtual int? CompareIntsOrReturnNull(JSingleValue singleValue)
+        {
+            if (!(this is JSingleValue))
+            {
+                return null;
+            } else {
+                int? value = singleValue.GetIntegerValueOrReturnNull();
+                if (value == null)
+                    return null;
+                var compared = value.Value.CompareTo( (this as JSingleValue).Contents);
+                if (compared < 0)
+                    return -1;
+                else if (compared > 0)
+                    return 1;
+                return 0;
+            }
+        }
+
+        public virtual bool HasItems()
+        {
+            return false;
+        }
+        public virtual bool HasKeyOrValue()
+        {
+            return false;
         }
         public override string ToString()
         {
@@ -46,46 +117,9 @@ namespace JSONParserLibrary
             BuildString(ref builder);
             return builder.ToString();
         }
-
-        public void BuildString(ref StringBuilder builder)
+        public virtual void BuildString(ref StringBuilder builder)
         {
-            switch (jType)
-            {
-                case JItemType.SingleValue:  //If our item is a Single Value
-                    builder.Append(Contents);
-                    break;
-                case JItemType.Object:       //If our item is an object { }
-                    builder.Append("{");
-                    for (int i = 0; i < Items.Count; ++i)
-                    {
-                        Items[i].BuildString(ref builder);
-                        builder.Append(((Items.Count - 1 == i) ? "" : ","));
-                    }
-                    builder.Append("}");
-                    break;
-                case JItemType.KeyValue:     //If our item is a "key":"value" pair key
-                    var pair = (this as JKeyValuePair);
-                    pair.Key.BuildString(ref builder);
-                    builder.Append(":");
-                    pair.Value.BuildString(ref builder);
-                    break;
-                case JItemType.Array:        //If our item is an array
-                    builder.Append("[");
-                    for (int i = 0; i < Items.Count; ++i)
-                    {
-                        Items[i].BuildString(ref builder);
-                        builder.Append(((Items.Count - 1 == i) ? "" : ","));
-                    }
-                    builder.Append("]");
-                    break;
-                case JItemType.Root:
-                    for (int i = 0; i < Items.Count; ++i)
-                    {
-                        Items[i].BuildString(ref builder);
-                        builder.Append(((Items.Count - 1 == i) ? "" : ","));
-                    }
-                    break;
-            }
+            BuildString(ref builder);
         }
     }
 }

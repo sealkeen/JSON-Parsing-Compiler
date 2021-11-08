@@ -1,20 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 
-namespace JSONParserLibrary
+namespace EPAM.CSCourse2016.SilkinIvan.JSONParser
 {
     public class JSingleValue : JItem
     {
+        public string Contents;
         public JSingleValue(string value, JItem parent = null) : 
-            base(JItemType.SingleValue)
+            base(parent)
         {
             Contents = value;
-            if (Contents[0] != '\"')
-                Contents = '\"' + Contents;
-            if (Contents[Contents.Length - 1] != '\"')
-                Contents += '\"';
-            Parent = parent;
+        }
+
+        public string GetValueQuotesRemoved()
+        { 
+            return Contents.Trim('\"');
+        }
+
+        public override bool ContainsIntegerValue()
+        {
+            if (Contents != null)
+            {
+                int result = 0;
+                if (int.TryParse(Contents, out result) == true)
+                    return true;
+            }
+            return false;
+        }
+
+        public override bool ContainsDateTimeValue()
+        {
+            if (Contents != null)
+            {
+                System.DateTime result;
+                if (System.DateTime.TryParse(GetValueQuotesRemoved(), out result) == true)
+                    return true;
+            }
+            return false;
+        }
+
+        public override int? GetIntegerValueOrReturnNull()
+        {
+            if (ContainsIntegerValue())
+            {
+                int result;
+                if (int.TryParse(Contents, out result))
+                    return result;
+            }
+            return null;
+        }
+
+        public override bool Equals(JItem obj)
+        {
+            if ((obj is JSingleValue) && (obj as JSingleValue).Contents == this.Contents) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        public override void BuildString(ref StringBuilder builder)
+        {
+            builder.Append((this as JSingleValue).Contents);
         }
     }
 }

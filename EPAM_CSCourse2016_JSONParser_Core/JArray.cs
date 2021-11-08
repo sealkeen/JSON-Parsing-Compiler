@@ -2,12 +2,16 @@
 
 namespace EPAM.CSCourse2016.SilkinIvan.JSONParser
 {
-    public class JObject : JCollection
+    public class JArray : JCollection
     {
-        public JObject(JItem parent, params JItem[] jItems) : base(parent, jItems)
+        public override char Delimeter { get { return ','; } }
+        public override string LeftBorder { get { return "["; } }
+        public override string RightBorder { get { return "]"; } }
+        public JArray(JItem parent) : base(parent)
         {
-            
+
         }
+
         public override void BuildString(ref StringBuilder builder)
         {
             builder.Append(LeftBorder);
