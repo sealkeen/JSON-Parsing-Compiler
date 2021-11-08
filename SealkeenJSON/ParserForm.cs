@@ -24,7 +24,7 @@ namespace EPAM.CSCourse2016.SilkinIvan.SealkeenJSON
             InitializeComponent();
         }
 
-        SealkeenParserClass sPC = new SealkeenParserClass();
+        JSONParser sPC = new JSONParser();
         JItem currentItem = null;
 
         //Rather testing method

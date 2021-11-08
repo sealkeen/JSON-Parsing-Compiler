@@ -76,7 +76,7 @@
     <Compile Include="JSingleValue.cs" />
     <Compile Include="JString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SealkeenParser.cs" />
+    <Compile Include="JSONParser.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

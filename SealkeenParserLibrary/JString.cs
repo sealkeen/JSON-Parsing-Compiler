@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EPAM.CSCourse2016.SilkinIvan.SealkeenJSON
+﻿namespace EPAM.CSCourse2016.SilkinIvan.SealkeenJSON
 {
     public class JString : JSingleValue
     {

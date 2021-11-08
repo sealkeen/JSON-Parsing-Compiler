@@ -1,16 +1,15 @@
-﻿//CREATED BY SILKIN IVAN AT EPAM TRAINING 2016
+﻿
+//CREATED BY SILKIN IVAN AT EPAM TRAINING 2016
 
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Linq;
 using EPAM.CSCourse2016.ParserPerfTester.Common;
 
 namespace EPAM.CSCourse2016.SilkinIvan.SealkeenJSON
 {
-    //Represents methods to parse JSON
-    public class SealkeenParserClass : IParser
+    public class JSONParser : IParser
     {
         public readonly char[] EmptySymbols = { ' ', '\t', '\r', '\n' };
 
@@ -27,7 +26,6 @@ namespace EPAM.CSCourse2016.SilkinIvan.SealkeenJSON
         private bool _pendingForPairValue = false;
         private int _indexOfTheChar = -1;
 
-        //Parse inside of this class
         private void InnerParse()
         {
             try
@@ -181,7 +179,7 @@ namespace EPAM.CSCourse2016.SilkinIvan.SealkeenJSON
             }
             else
             {
-                //throw new InvalidEnumArgumentException(); //не было более подходящего, лел
+                //throw new InvalidEnumArgumentException();
             }
             _pendingForPairValue = true;
             _JItemContentsBuffer.Clear();
