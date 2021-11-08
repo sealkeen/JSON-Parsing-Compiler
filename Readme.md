@@ -3,4 +3,4 @@ Linq-to-XML styled project to create static-typed JSON Objects, e.g. - JString a
 
 ## Usage - output:
 You can output the created objects using public methods like JItem.ToString() and JItem.ToFile("filename.txt"). 
-Uee unit-tests for more info.
+See unit-tests for more info.
