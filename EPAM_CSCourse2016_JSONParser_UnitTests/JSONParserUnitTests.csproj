@@ -53,12 +53,6 @@
     <Compile Include="JSONParserTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SealkeenParserLibrary\EPAM.CSCourse2016.SilkinIvan.SealkeenJSON.SealkeenParserLibrary.csproj">
-      <Project>{302b91f3-1d2d-4b20-86ff-cc4d37fc3e80}</Project>
-      <Name>EPAM.CSCourse2016.SilkinIvan.SealkeenJSON.SealkeenParserLibrary</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using EPAM.CSCourse2016.SilkinIvan.SealkeenJSON;
+using EPAM.CSCourse2016.;
 using System.IO;
 using System.Diagnostics;
 
