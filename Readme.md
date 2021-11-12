@@ -18,13 +18,13 @@ The next step is the in-memory objects represented :
 
 *JKeyValuePair class = "key" : "value"                             // (JKeyValuePair): JCollection*
 
-*JSingleValue = false || true || 1234 || 194.0                     // (JSingleValue) : JItem (bool, integer, double, string)
+*JSingleValue = false || true || 1234 || 194.0                     // (JSingleValue) : JItem (bool, integer, double, string)*
 
-*JString = "JString object" || "any string value"                  // (JString) : (JSingleValue)
+*JString = "JString object" || "any string value"                  // (JString) : (JSingleValue)*
 
-*JObject =                                                         // (JObject) : JCollection 
+*JObject =                                                         // (JObject) : JCollection*
     *{ "JString" : true } || 
     *{ { "JObject" }, { true }, { "JString" } } || 
     *{ "Key" : "Value" } // JObject : JItem
     
-*JArray = [ { "JString" }, { "JObject" }, [ "JArray" ] ]           // (JArray) : JCollection
+*JArray = [ { "JString" }, { "JObject" }, [ "JArray" ] ]           // (JArray) : JCollection*
