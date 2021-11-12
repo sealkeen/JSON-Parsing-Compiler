@@ -13,10 +13,14 @@ Create a JSONParser class by calling Constructor (string[] JSONString)
 The next step is the in-memory objects represented :
 
 // public abstract class JItem 
+
 // public abstract class JCollection
 //JKeyValuePair class = "key" : "value"                           // (JKeyValuePair): JCollection
+
 //JSingleValue = false || true || 1234 || 194.0                   // (JSingleValue) : JItem (bool, integer, double, string)
+
 //JString = "JString object" || "any string value"                // (JString) : (JSingleValue)
+
 //JObject =                                                       // (JObject) : JCollection 
     { "JString" : true } || 
     { { "JObject" }, { true }, { "JString" } } || 
