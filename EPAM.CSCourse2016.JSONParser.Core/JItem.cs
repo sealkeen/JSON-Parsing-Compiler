@@ -14,17 +14,33 @@ namespace EPAM.CSCourse2016.JSONParser.Library
         {
             Parent = parent;
         }
+        public bool SaveToFileAndOpenInNotepad(string filename, bool rewrite = false, string application = "notepad.exe")
+        {
+            bool result = ToFile(filename, rewrite);
+            if (File.Exists(filename))
+                System.Diagnostics.Process.Start(application, filename);
+            else
+                return false;
+            return true;
+        }
         public bool ToFile(string filename, bool rewrite = false)
         {
             StreamWriter sW;
-            if (File.Exists(filename) && rewrite)
+            try
             {
-                sW =  new StreamWriter(filename, !rewrite);
+                if (File.Exists(filename) && rewrite)
+                {
+                    sW = new StreamWriter(filename, !rewrite);
+                }
+                sW = new StreamWriter(filename, rewrite);
+                sW.Write(ToString());
+                sW.Close();
+                return true;
             }
-            sW = new StreamWriter(filename, rewrite);
-            sW.Write(ToString());
-            sW.Close();
-            return true;
+            catch (System.Exception ex)
+            {
+                return false;
+            }
         }
         public static JSingleValue Factory(JItemType itemType, string value)
         {
@@ -37,7 +53,6 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             }
             return null;
         }
-
         public JItem FindContainerOrReturnParent(JSingleValue jSingleValue)
         {
             var container = this.Parent;

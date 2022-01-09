@@ -109,6 +109,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EPAM.CSCourse2016.JSONParser.Core\EPAM.CSCourse2016.JSONParser.Library.csproj">
+      <Project>{47588d53-ce64-4f97-82c0-6c8c65dabecf}</Project>
+      <Name>EPAM.CSCourse2016.JSONParser.Library</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

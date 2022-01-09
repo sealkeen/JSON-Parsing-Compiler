@@ -15,6 +15,16 @@ namespace QueriesTests
             QueriesClient.Program.Main(new string[] { "-mark", "3", "-name", "Ivan", "-date", "11/20/2012" });
         }
 
+        [Test]
+        public void CreateAndOpenJObjectFile()
+        {
+            JObject jObject = new JObject(null);
+            JKeyValuePair jKeyValuePair = new JKeyValuePair(new JString("Key"), new JString("Value"));
+            jObject.Add(jKeyValuePair);
+            jObject.SaveToFileAndOpenInNotepad("jKeyValuePair.txt");
+            // jObject.ToFile("filename.txt");
+        }
+
         private static Random rnd = new Random();
         [Test]
         public void CreateJSONTest()

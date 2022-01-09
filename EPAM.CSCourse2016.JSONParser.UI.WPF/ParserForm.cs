@@ -13,6 +13,7 @@ using System.IO;
 using System.Threading;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using EPAM.CSCourse2016.JSONParser.Library;
 
 namespace EPAM.CSCourse2016.JSONParser.SealkeenJSON
 {
@@ -24,7 +25,7 @@ namespace EPAM.CSCourse2016.JSONParser.SealkeenJSON
             InitializeComponent();
         }
 
-        JSONParser sPC = new JSONParser();
+        EPAM.CSCourse2016.JSONParser.Library.JSONParser sPC = new EPAM.CSCourse2016.JSONParser.Library.JSONParser();
         JItem currentItem = null;
 
         //Rather testing method

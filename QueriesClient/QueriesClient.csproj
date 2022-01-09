@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EPAM.CSCourse2016.JSONParser.Core\EPAM.CSCourse2016.JSONParser.Library.csproj" />
-    <ProjectReference Include="..\EPAM.CSCourse2016.SilkinIvan.SealkeenJSON.Parser\EPAM.CSCourse2016.SilkinIvan.SealkeenJSON.Parser.csproj" />
   </ItemGroup>
 
 </Project>
