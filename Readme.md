@@ -2,7 +2,7 @@
 Linq-to-XML styled project to create static-typed JSON Objects, e.g. - JString and JSingleValue for ("string" and 45).
 
 ## Test cases
-```
+```C#
     [Test]
     public void CreateAndOpenJObjectFile()
     {
