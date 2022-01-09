@@ -7,7 +7,7 @@ using QueriesClient;
 
 namespace QueriesTests
 {
-    public class QueriesTests
+    public class QueriesTests : ConsoleWriteLinable
     {
         [Test]
         public void ParseJSON()
@@ -19,10 +19,17 @@ namespace QueriesTests
         public void CreateAndOpenJObjectFile()
         {
             JObject jObject = new JObject(null);
-            JKeyValuePair jKeyValuePair = new JKeyValuePair(new JString("Key"), new JString("Value"));
-            jObject.Add(jKeyValuePair);
+            jObject.Add(new JKeyValuePair(new JString("Key"), new JString("Value")));
             jObject.SaveToFileAndOpenInNotepad("jKeyValuePair.txt");
             // jObject.ToFile("filename.txt");
+        }
+
+        [Test]
+        public void ParseTest()
+        {
+            JSONParser jSONParser = new JSONParser("jKeyValuePair.txt");
+            var jItem = jSONParser.Parse();
+            Debug.WriteLine(jItem.ToString());
         }
 
         private static Random rnd = new Random();

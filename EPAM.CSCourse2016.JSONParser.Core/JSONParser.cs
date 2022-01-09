@@ -29,6 +29,10 @@ namespace EPAM.CSCourse2016.JSONParser.Library
         {
             InitializeStructure();
         }
+        /// <summary>
+        /// Parses JSON file.
+        /// </summary>
+        /// <param name="filePath">Parse JSON from a file.</param>
         public JSONParser(string filePath) : this()
         {
             if (File.Exists(filePath))
@@ -38,6 +42,10 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             }
         }
 
+        /// <summary>
+        /// Parses in-memory JSON string.
+        /// </summary>
+        /// <param name="JSON">The first element [0] is the string to parse.</param>
         public JSONParser(string[] JSON) : this()
         {
             if (JSON.Length > 0)
