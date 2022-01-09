@@ -13,6 +13,8 @@ Linq-to-XML styled project to create static-typed JSON Objects, e.g. - JString a
         // jObject.ToFile("filename.txt");
     }
 ```
+### Result in "jKeyValuePair.txt": 
+    {"Key":"Value"}
 
 ## Usage - output:
 You can output the created objects using public methods like JItem.ToString() and JItem.ToFile("filename.txt"). 
