@@ -18,8 +18,7 @@ namespace QueriesTests
         [Test]
         public void CreateAndOpenJObjectFile()
         {
-            JObject jObject = new JObject(null);
-            jObject.Add(new JKeyValuePair(new JString("Key"), new JString("Value")));
+            JObject jObject = new JObject(null, new JString("Key"), new JString("Value"));
             jObject.SaveToFileAndOpenInNotepad("jKeyValuePair.txt");
             // jObject.ToFile("filename.txt");
         }
