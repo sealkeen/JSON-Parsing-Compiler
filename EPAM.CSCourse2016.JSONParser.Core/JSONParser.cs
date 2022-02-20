@@ -56,7 +56,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
 
         private JItem InitializeStructure()
         {
-            JKeyValuePair newPair = new JKeyValuePair(null, null);
+            JKeyValuePair newPair = new JKeyValuePair("", "");
             JRoot Root = new JRoot();
             _keyValueStack.Clear();
             _itemStack.Clear();

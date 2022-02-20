@@ -22,6 +22,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
                     Items[0] = value;
             }
         }
+
         public JItem Value
         {
             get
@@ -38,10 +39,12 @@ namespace EPAM.CSCourse2016.JSONParser.Library
                     Items[1] = value;
             }
         }
+
         public JKeyValuePair(JItem parent) : base(parent)
         {
 
         }
+
         public JKeyValuePair(JItem key, JItem value, JItem parent = null) : this(parent)
         {
             Key = key;
@@ -56,6 +59,22 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             Parent = parent;
         }
 
+        public JKeyValuePair(string key, string value, JItem parent = null) : this(parent)
+        {
+            Key = new JString(key);
+            Value = new JString(value, this);
+            
+            Parent = parent;
+        }
+
+        public override string GetPairedValue()
+        {
+            if (Value != null && Value is JSingleValue)
+                return Value.ToString().Trim('\"');
+            return
+                base.GetPairedValue();
+        }
+
         public override bool Contains(JSingleValue jItem)
         {
             if (Key.Equals(jItem) || Value.Equals(jItem))
@@ -65,11 +84,39 @@ namespace EPAM.CSCourse2016.JSONParser.Library
 
         public override bool ContainsKey(JSingleValue jItem)
         {
-            if (this.Key.Contains(jItem))
+            if (this.Key.Equals(jItem))
             {
                 return true;
             }
             return false;
+        }
+
+        public override bool ContainsValue(JSingleValue jItem)
+        {
+            if (this.Value.Equals(jItem))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public override bool ContainsKeyAndValue(JSingleValue key, JSingleValue value)
+        {
+            if (Key.Equals(key) && Value.Equals(value))
+                return true;
+            return false;
+        }
+
+        public override bool ContainsKeyAndValue(string key, string value)
+        {
+            if (Key.Equals(key) && Value.Equals(value))
+                return true;
+            return false;
+        }
+
+        public override bool ContainsKeyAndValueOf(JKeyValuePair of)
+        {
+            return ContainsKeyAndValue(of.Key.ToString(), of.Value.ToString());
         }
 
         public override bool ContainsIntegerValue()
@@ -122,6 +169,5 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             if ( Value != null )
                 Value.BuildString(ref builder);
         }
-
     }
 }

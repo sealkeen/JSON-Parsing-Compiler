@@ -14,6 +14,16 @@ namespace EPAM.CSCourse2016.JSONParser.Library
         {
             Parent = parent;
         }
+
+        public virtual List<JItem> Descendants()
+        {
+            return Items;
+        }
+
+        public virtual void Add(params JItem[] jItem)
+        {
+
+        }
         public bool SaveToFileAndOpenInNotepad(string filename, bool rewrite = false, string application = "notepad.exe")
         {
             bool result = ToFile(filename, rewrite);
@@ -81,7 +91,22 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             return null;
         }
 
-        public void ListAllNodes(ref List<JItem> nodes)
+        public void ListAllPairs(ref List<JItem> nodes)
+        {
+            if (Items == null)
+            {
+                Items = new List<JItem>();
+            }
+
+            foreach (var jItem in Items)
+            {
+                jItem.ListAllPairs(ref nodes);
+                if(jItem.HasKeyOrValue())
+                    nodes.Add(jItem);
+            }
+        }
+
+        public virtual void ListAllNodes(ref List<JItem> nodes)
         {
             if (Items == null)
             {
@@ -103,7 +128,78 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             return false;
         }
 
+        public virtual bool ContainsKeyAndValue(JSingleValue key, JSingleValue value)
+        {
+            return false;
+        }
+
+        public virtual bool ContainsKeyAndValueOf(JKeyValuePair of)
+        {
+            return false;
+        }
+
+        public virtual bool ContainsKeyAndValue(string key, string value)
+        {
+            return false;
+        }
+
+        public virtual bool ContainsKeyAndValueRecursive(JSingleValue key, JSingleValue value)
+        {
+            foreach (var jItem in Items)
+            {
+                if (ContainsKeyAndValue(key, value))
+                    return true;
+
+                ContainsKeyAndValueRecursive(key, value);
+            }
+            return false;
+        }
+
+        public virtual bool HasThesePairs(List<JKeyValuePair> attributes)
+        {
+            return false;
+        }
+
+        public virtual JItem HasThesePairsRecursive(List<JKeyValuePair> sourcePairs)
+        {
+            var matchCount = 0;
+            foreach (JItem targetPair in Items)
+            {
+                if (!targetPair.HasKeyOrValue())
+                    continue;
+                if (Matched(sourcePairs, targetPair) == 1)
+                    matchCount++;
+            }
+            if (matchCount == sourcePairs.Count)
+                return this;
+
+            foreach (JItem jItem in Items)
+            {
+                if (!jItem.HasItems())
+                    continue;
+                HasThesePairsRecursive(sourcePairs);
+            }
+
+            return null;
+        }
+
+        private static int Matched(List<JKeyValuePair> sourcePairs, JItem targetPair)
+        {
+            int matchCount = 0;
+            for (int a = 0; a < sourcePairs.Count; a++)
+            {
+                if (targetPair.ContainsKeyAndValueOf(sourcePairs[a]))
+                    matchCount++;
+            }
+            return matchCount;
+        }
+
         public virtual bool ContainsKey(JSingleValue jItem)
+        {
+            return false;
+        }
+
+        public virtual bool ContainsValue(JSingleValue jItem)
         {
             return false;
         }
@@ -151,6 +247,12 @@ namespace EPAM.CSCourse2016.JSONParser.Library
         {
             return false;
         }
+
+        public virtual string GetPairedValue()
+        {
+            return new JString("null");
+        }
+
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder();

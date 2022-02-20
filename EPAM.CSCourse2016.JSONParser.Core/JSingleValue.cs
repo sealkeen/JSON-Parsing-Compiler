@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 
 namespace EPAM.CSCourse2016.JSONParser.Library
 {
@@ -11,6 +12,11 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             Contents = value;
         }
 
+        public override string ToString()
+        {
+            return Contents;
+        }
+
         public string GetValueQuotesRemoved()
         { 
             return Contents.Trim('\"');
@@ -19,6 +25,15 @@ namespace EPAM.CSCourse2016.JSONParser.Library
         public override bool Contains(JSingleValue jItem)
         {
             return Contents.Contains(jItem.Contents);
+        }
+
+        public override bool ContainsValue(JSingleValue jItem)
+        {
+            if (this.Contents.Equals(jItem))
+            {
+                return true;
+            }
+            return false;
         }
 
         public override bool ContainsIntegerValue()
@@ -66,6 +81,14 @@ namespace EPAM.CSCourse2016.JSONParser.Library
         public override void BuildString(ref StringBuilder builder)
         {
             builder.Append((this as JSingleValue).Contents);
+        }
+
+        public override void ListAllNodes(ref List<JItem> nodes)
+        {
+            if (Items == null)
+            {
+                Items = new List<JItem>();
+            }
         }
     }
 }

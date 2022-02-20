@@ -45,7 +45,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             }
             builder.Append(RightBorder);
         }
-        public virtual void Add(params JItem[] jItem)
+        public override void Add(params JItem[] jItem)
         {
             foreach (var item in jItem)
             {
