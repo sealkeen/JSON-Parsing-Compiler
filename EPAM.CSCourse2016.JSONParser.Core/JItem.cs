@@ -53,6 +53,11 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             }
             return null;
         }
+        /// <summary>
+        /// Finds a parent node that contains the value.
+        /// </summary>
+        /// <param name="jSingleValue">The parent property must not be null.</param>
+        /// <returns></returns>
         public JItem FindContainerOrReturnParent(JSingleValue jSingleValue)
         {
             var container = this.Parent;
@@ -64,6 +69,18 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             }
             return this.Parent;
         }
+
+        public JItem FindPairByKey(JSingleValue key)
+        {
+            if (this.Contains(key))
+                return this.Parent;
+            foreach (var i in this.Items)
+            {
+                FindPairByKey(key);
+            }
+            return null;
+        }
+
         public void ListAllNodes(ref List<JItem> nodes)
         {
             if (Items == null)
@@ -82,6 +99,11 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             return false;
         }
         public virtual bool Contains(JSingleValue jItem)
+        {
+            return false;
+        }
+
+        public virtual bool ContainsKey(JSingleValue jItem)
         {
             return false;
         }
@@ -117,11 +139,14 @@ namespace EPAM.CSCourse2016.JSONParser.Library
                 return 0;
             }
         }
-
         public virtual bool HasItems()
         {
             return false;
         }
+        /// <summary>
+        /// Checks whether this JItem is a JKeyValuePair.
+        /// </summary>
+        /// <returns></returns>
         public virtual bool HasKeyOrValue()
         {
             return false;

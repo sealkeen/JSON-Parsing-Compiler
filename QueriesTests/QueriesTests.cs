@@ -28,7 +28,9 @@ namespace QueriesTests
         {
             JSONParser jSONParser = new JSONParser("jKeyValuePair.txt");
             var jItem = jSONParser.Parse();
-            Debug.WriteLine(jItem.ToString());
+            JKeyValuePair kvPair = (JKeyValuePair)jItem.FindContainerOrReturnParent(new JString("Key"));
+            Debug.WriteLine(jItem);
+            Debug.WriteLine(kvPair.Value);
         }
 
         private static Random rnd = new Random();

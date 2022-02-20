@@ -16,6 +16,11 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             return Contents.Trim('\"');
         }
 
+        public override bool Contains(JSingleValue jItem)
+        {
+            return Contents.Contains(jItem.Contents);
+        }
+
         public override bool ContainsIntegerValue()
         {
             if (Contents != null)
