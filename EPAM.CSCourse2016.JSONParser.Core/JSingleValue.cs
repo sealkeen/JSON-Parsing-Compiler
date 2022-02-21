@@ -90,5 +90,9 @@ namespace EPAM.CSCourse2016.JSONParser.Library
                 Items = new List<JItem>();
             }
         }
+        public override bool AddPairs(List<JKeyValuePair> items)
+        {
+            return false;
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace EPAM.CSCourse2016.JSONParser.Library
@@ -12,7 +13,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             {
                 if (Items.Count >= 1)
                     return Items[0];
-                return new JSingleValue("Non-Valid Key.");
+                return new JString("Non-Valid Key.");
             }
             set
             {
@@ -29,13 +30,13 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             {
                 if (Items.Count >= 2)
                     return Items[1];
-                return new JSingleValue("Non-Valid Value.");
+                return new JString("Non-Valid Value.");
             }
             set
             {
                 if (Items.Count == 1)
                     Items.Add(value);
-                else if (Items.Count == 2)
+                else if (Items.Count >= 2)
                     Items[1] = value;
             }
         }
@@ -70,7 +71,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
         public override string GetPairedValue()
         {
             if (Value != null && Value is JSingleValue)
-                return Value.ToString().Trim('\"');
+                return (Value.ToString());
             return
                 base.GetPairedValue();
         }
@@ -161,6 +162,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
         {
             return true;
         }
+
         public override void BuildString(ref StringBuilder builder)
         {
             if ( Key != null )
@@ -168,6 +170,11 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             builder.Append(":");
             if ( Value != null )
                 Value.BuildString(ref builder);
+        }
+
+        public override bool AddPairs(List<JKeyValuePair> items)
+        {
+            return false;
         }
     }
 }

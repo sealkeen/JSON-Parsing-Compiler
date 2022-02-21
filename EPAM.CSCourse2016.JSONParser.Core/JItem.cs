@@ -20,6 +20,21 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             return Items;
         }
 
+        public List<JKeyValuePair> DescendantPairs()
+        {
+            List<JKeyValuePair> result = new List<JKeyValuePair>();
+            
+            foreach (var item in Items)
+            {
+                if (item.HasKeyOrValue())
+                {
+                    result.Add(item as JKeyValuePair);
+                }
+            }
+            
+            return result;
+        }
+
         public virtual void Add(params JItem[] jItem)
         {
 
@@ -80,15 +95,15 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             return this.Parent;
         }
 
-        public JItem FindPairByKey(JSingleValue key)
+        public JKeyValuePair FindPairByKey(JSingleValue key)
         {
-            if (this.Contains(key))
-                return this.Parent;
+            if (this.HasKeyOrValue() && this.ContainsKey(key))
+                return this as JKeyValuePair;
             foreach (var i in this.Items)
             {
                 FindPairByKey(key);
             }
-            return null;
+            return new JKeyValuePair(key, new JString("null"));
         }
 
         public void ListAllPairs(ref List<JItem> nodes)
@@ -160,6 +175,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             return false;
         }
 
+        //StackOverflow
         public virtual JItem HasThesePairsRecursive(List<JKeyValuePair> sourcePairs)
         {
             var matchCount = 0;
@@ -192,6 +208,15 @@ namespace EPAM.CSCourse2016.JSONParser.Library
                     matchCount++;
             }
             return matchCount;
+        }
+
+        public virtual bool AddPairs(List<JKeyValuePair> items)
+        {
+            foreach (var item in items)
+            {
+                Items.Add(item);
+            }
+            return true;
         }
 
         public virtual bool ContainsKey(JSingleValue jItem)
@@ -250,7 +275,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
 
         public virtual string GetPairedValue()
         {
-            return new JString("null");
+            return ("NaN");
         }
 
         public override string ToString()
