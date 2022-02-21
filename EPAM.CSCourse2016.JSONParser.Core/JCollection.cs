@@ -26,6 +26,12 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             Items = new List<JItem>();
             Add(jItems);
         }
+
+        public override bool IsCollection()
+        {
+            return true;
+        }
+
         public override bool HasItems()
         {
             if (Items == null)

@@ -75,7 +75,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
         {
             InnerParse();
             FindRootJSItem();
-            return _currentItem;
+            return _currentItem.Descendants()[0];
         }
 
         private void InnerParse()

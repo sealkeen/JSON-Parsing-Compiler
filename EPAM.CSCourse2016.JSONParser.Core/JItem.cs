@@ -9,7 +9,6 @@ namespace EPAM.CSCourse2016.JSONParser.Library
     {
         protected List<JItem> Items;
         public JItem Parent = null;
-        bool built = false;
         public JItem(JItem parent = null)
         {
             Parent = parent;
@@ -18,6 +17,18 @@ namespace EPAM.CSCourse2016.JSONParser.Library
         public virtual List<JItem> Descendants()
         {
             return Items;
+        }
+
+        public virtual bool IsCollection()
+        {
+            return false;
+        }
+
+        public JItem FirstNode()
+        {
+            if(Items != null && Items.Count > 0)
+                return Items[0];
+            return null;
         }
 
         public List<JKeyValuePair> DescendantPairs()
@@ -37,7 +48,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
 
         public virtual void Add(params JItem[] jItem)
         {
-
+            //TODO: Add body
         }
         public bool SaveToFileAndOpenInNotepad(string filename, bool rewrite = false, string application = "notepad.exe")
         {
@@ -193,7 +204,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             {
                 if (!jItem.HasItems())
                     continue;
-                HasThesePairsRecursive(sourcePairs);
+                jItem.HasThesePairsRecursive(sourcePairs);
             }
 
             return null;
