@@ -39,6 +39,8 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             {
                 StreamReader streamReader = new StreamReader(filePath);
                 _sourceString = new StringBuilder(streamReader.ReadToEnd());
+                streamReader.Close();
+                streamReader.Dispose();
             }
         }
 
@@ -75,7 +77,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
         {
             InnerParse();
             FindRootJSItem();
-            return _currentItem.Descendants()[0];
+            return _currentItem;
         }
 
         private void InnerParse()

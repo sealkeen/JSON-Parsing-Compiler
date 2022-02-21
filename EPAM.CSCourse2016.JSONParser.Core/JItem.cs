@@ -61,13 +61,9 @@ namespace EPAM.CSCourse2016.JSONParser.Library
         }
         public bool ToFile(string filename, bool rewrite = false)
         {
-            StreamWriter sW;
+            StreamWriter sW  = null;
             try
             {
-                if (File.Exists(filename) && rewrite)
-                {
-                    sW = new StreamWriter(filename, !rewrite);
-                }
                 sW = new StreamWriter(filename, rewrite);
                 sW.Write(ToString());
                 sW.Close();
@@ -75,6 +71,8 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             }
             catch (System.Exception ex)
             {
+                if (sW != null)
+                    sW.Dispose();
                 return false;
             }
         }
@@ -225,6 +223,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
         {
             foreach (var item in items)
             {
+                item.Parent = this;
                 Items.Add(item);
             }
             return true;
