@@ -16,7 +16,10 @@ namespace EPAM.CSCourse2016.JSONParser.Library
 
         public virtual List<JItem> Descendants()
         {
-            return Items;
+            if (Items != null)
+                return Items;
+            else
+                return new List<JItem>();
         }
 
         public virtual bool IsCollection()
