@@ -18,5 +18,6 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             }
             builder.Append(RightBorder);
         }
+
     }
 }

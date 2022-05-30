@@ -17,8 +17,8 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             return Contents;
         }
 
-        public string GetValueQuotesRemoved()
-        { 
+        public override string AsUnquoted()
+        {
             return Contents.Trim('\"');
         }
 
@@ -52,7 +52,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             if (Contents != null)
             {
                 System.DateTime result;
-                if (System.DateTime.TryParse(GetValueQuotesRemoved(), out result) == true)
+                if (System.DateTime.TryParse(AsUnquoted(), out result) == true)
                     return true;
             }
             return false;
@@ -93,6 +93,11 @@ namespace EPAM.CSCourse2016.JSONParser.Library
         public override bool AddPairs(List<JKeyValuePair> items)
         {
             return false;
+        }
+
+        public override void Add(params JItem[] jItem)
+        {
+            
         }
     }
 }

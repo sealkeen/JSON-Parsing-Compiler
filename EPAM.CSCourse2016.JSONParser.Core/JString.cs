@@ -22,5 +22,27 @@ namespace EPAM.CSCourse2016.JSONParser.Library
                 return 0;
             }
         }
+
+        public override bool ContainsIntegerValue()
+        {
+            if (Contents.Trim('\"') != null)
+            {
+                int result = 0;
+                if (int.TryParse(Contents.Trim('\"'), out result) == true)
+                    return true;
+            }
+            return false;
+        }
+
+        public override int? GetIntegerValueOrReturnNull()
+        {
+            if (Contents.Trim('\"') != null)
+            {
+                int result = 0;
+                if (int.TryParse(Contents.Trim('\"'), out result) == true)
+                    return result;
+            }
+            return null;
+        }
     }
 }

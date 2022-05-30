@@ -102,7 +102,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
                 _currentItem = _itemStack.Peek();
                 if (_currentItem is JRoot && !_currentItem.HasItems())
                 {
-                    (_currentItem as JRoot).Add(new JSingleValue(_JItemContentsBuffer.Replace(" ", "").ToString(), _currentItem));
+                    (_currentItem as JRoot).Add(JItemFactory.JSingleValue(_JItemContentsBuffer.Replace(" ", "").ToString(), _currentItem));
                     _JItemContentsBuffer.Clear();
                 }
             }
@@ -172,7 +172,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             _currentItem = _itemStack.Peek();
             if (_pendingForPairValue)
             {
-                JItem jI = new JSingleValue(_JItemContentsBuffer.ToString(), _currentItem);
+                JItem jI = JItemFactory.JSingleValue(_JItemContentsBuffer.ToString(), _currentItem);
                 _currentKeyValuePair.Value = jI;
                 _keyValueStack.Pop();
                 _pendingForPairValue = false;
@@ -181,7 +181,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             {
                 if (!string.IsNullOrWhiteSpace(_JItemContentsBuffer.ToString()))
                 {
-                    (_currentItem as JCollection).Add(new JSingleValue(_JItemContentsBuffer.ToString(), _currentItem));
+                    (_currentItem as JCollection).Add(JItemFactory.JSingleValue(_JItemContentsBuffer.ToString(), _currentItem));
                     _JItemContentsBuffer.Clear();
                     return;
                 }
@@ -198,7 +198,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             if (!_pendingForPairValue)
             {
                 JKeyValuePair pair =
-                    new JKeyValuePair(new JSingleValue(_JItemContentsBuffer.ToString()), null);
+                    new JKeyValuePair(JItemFactory.JSingleValue(_JItemContentsBuffer.ToString()), null);
                 (_currentItem as JCollection).Add(pair);
                 _keyValueStack.Push(pair);
             }
@@ -216,7 +216,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             _currentItem = _itemStack.Peek();
             if (_pendingForPairValue)
             {
-                JItem item = new JSingleValue(_JItemContentsBuffer.ToString(), _currentItem);
+                JItem item = JItemFactory.JSingleValue(_JItemContentsBuffer.ToString(), _currentItem);
                 _currentKeyValuePair.Value = item;
                 _JItemContentsBuffer.Clear();
                 _keyValueStack.Pop();
@@ -225,7 +225,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             {
                 if (!string.IsNullOrWhiteSpace(_JItemContentsBuffer.ToString()))
                 {
-                    (_currentItem as JCollection).Add(new JSingleValue(_JItemContentsBuffer.ToString(), _currentItem));
+                    (_currentItem as JCollection).Add(JItemFactory.JSingleValue(_JItemContentsBuffer.ToString(), _currentItem));
                     _JItemContentsBuffer.Clear();
                 }
             }
@@ -261,7 +261,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             _currentItem = _itemStack.Peek();
             if (_pendingForPairValue)
             {
-                JItem item = new JSingleValue(_JItemContentsBuffer.ToString(), _currentItem);
+                JItem item = JItemFactory.JSingleValue(_JItemContentsBuffer.ToString(), _currentItem);
                 _currentKeyValuePair.Value = item;
                 _JItemContentsBuffer.Clear();
                 _keyValueStack.Pop();
@@ -271,7 +271,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             {
                 if (!string.IsNullOrWhiteSpace(_JItemContentsBuffer.ToString()))
                 {
-                    (_currentItem as JCollection).Add(new JSingleValue(_JItemContentsBuffer.ToString(), _currentItem));
+                    _currentItem.Add(JItemFactory.JSingleValue(_JItemContentsBuffer.ToString(), _currentItem));
                     _JItemContentsBuffer.Clear();
                 }
             }

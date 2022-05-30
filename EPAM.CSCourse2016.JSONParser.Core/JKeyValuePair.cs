@@ -68,10 +68,10 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             Parent = parent;
         }
 
-        public override string GetPairedValue()
+        public override JItem GetPairedValue()
         {
-            if (Value != null && Value is JSingleValue)
-                return (Value.ToString());
+            if (Value != null)
+                return Value;
             return
                 base.GetPairedValue();
         }
@@ -124,7 +124,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
         {
             if (Value != null)
             {
-                if ((Value is JSingleValue) && (Value as JSingleValue).ContainsIntegerValue())
+                if ((Value is JSingleValue) && Value.ContainsIntegerValue())
                     return true;
             }
             return false;
@@ -144,7 +144,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
         {
             if (ContainsIntegerValue()) {
                 int result;
-                if(int.TryParse((Value as JSingleValue).Contents, out result))
+                if(int.TryParse(Value.AsUnquoted(), out result))
                     return result;
             }
             return null;
@@ -155,7 +155,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
         }
         public DateTime GetDateTimeValue()
         {
-            return DateTime.Parse((Value as JSingleValue).GetValueQuotesRemoved());
+            return DateTime.Parse((Value as JSingleValue).AsUnquoted());
         }
 
         public override bool HasKeyOrValue()

@@ -7,7 +7,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
     //Represents the structure of a JSON document
     public abstract class JItem
     {
-        protected List<JItem> Items;
+        public List<JItem> Items;
         public JItem Parent = null;
         public JItem(JItem parent = null)
         {
@@ -47,6 +47,50 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             }
             
             return result;
+        }
+
+        public List<JKeyValuePair> DescendantPairsRecursive()
+        {
+            List<JKeyValuePair> result = new List<JKeyValuePair>();
+
+            foreach (var item in Items)
+            {
+                if (item.HasKeyOrValue())
+                {
+                    result.Add(item as JKeyValuePair);
+                }
+            }
+
+            return result;
+        }
+
+        public JArray FindFirstArray()
+        {
+            if (this is JArray)
+                return this as JArray;
+            foreach (var i in this.Items)
+            {
+                i.FindFirstArray();
+            }
+            return null;
+        }
+
+        public JKeyValuePair DescendantPair(string key)
+        {
+            JString str = new JString(key);
+            if (Items != null)
+            {
+                foreach (var item in Items)
+                {
+                    if (item.HasKeyOrValue())
+                    {
+                        if (item.ContainsKey(str))
+                            return item as JKeyValuePair;
+                    }
+                }
+            }
+
+            return null;
         }
 
         public virtual void Add(params JItem[] jItem)
@@ -111,11 +155,20 @@ namespace EPAM.CSCourse2016.JSONParser.Library
         {
             if (this.HasKeyOrValue() && this.ContainsKey(key))
                 return this as JKeyValuePair;
-            foreach (var i in this.Items)
+            else
             {
-                FindPairByKey(key);
+                if (Items != null)
+                {
+                    JKeyValuePair pair = null;
+                    foreach (var i in this.Items)
+                    {
+                        pair = i.FindPairByKey(key);
+                        if (pair != null)
+                            return pair;
+                    }
+                }
             }
-            return new JKeyValuePair(key, new JString("null"));
+            return null;
         }
 
         public void ListAllPairs(ref List<JItem> nodes)
@@ -286,9 +339,14 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             return false;
         }
 
-        public virtual string GetPairedValue()
+        public virtual string AsUnquoted()
         {
-            return ("NaN");
+            return null;
+        }
+
+        public virtual JItem GetPairedValue()
+        {
+            return new JString("NaN");
         }
 
         public override string ToString()
@@ -300,6 +358,18 @@ namespace EPAM.CSCourse2016.JSONParser.Library
         public virtual void BuildString(ref StringBuilder builder)
         {
             BuildString(ref builder);
+        }
+
+        public virtual long? ToUInt64()
+        {
+            return null;
+        }
+
+        public JArray ToArray()
+        {
+            JArray result = new JArray(this.Parent);
+            result.Items = this.Items;
+            return result;
         }
     }
 }
