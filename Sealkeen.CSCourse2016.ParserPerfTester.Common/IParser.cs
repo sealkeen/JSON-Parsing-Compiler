@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EPAM.CSCourse2016.ParserPerfTester.Common
+namespace Sealkeen.CSCourse2016.ParserPerfTester.Common
 {
     public interface IParser
     {

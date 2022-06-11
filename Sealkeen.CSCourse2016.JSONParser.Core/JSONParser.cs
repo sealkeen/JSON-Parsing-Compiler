@@ -1,13 +1,13 @@
-﻿//CREATED BY SILKIN IVAN AT EPAM TRAINING 2016
+﻿//CREATED BY SILKIN IVAN AT Sealkeen TRAINING 2016
 
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Linq;
-//using EPAM.CSCourse2016.ParserPerfTester.Common;
+//using Sealkeen.CSCourse2016.ParserPerfTester.Common;
 using System.IO;
 
-namespace EPAM.CSCourse2016.JSONParser.Library
+namespace Sealkeen.CSCourse2016.JSONParser.Core
 {
     public class JSONParser //: IParser
     {

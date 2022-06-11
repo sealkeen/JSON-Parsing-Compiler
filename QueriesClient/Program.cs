@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Diagnostics;
-using EPAM.CSCourse2016.JSONParser.Library;
+using Sealkeen.CSCourse2016.JSONParser.Core;
 using System.Collections.Generic;
 
 namespace QueriesClient

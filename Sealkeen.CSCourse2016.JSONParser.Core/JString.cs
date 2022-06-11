@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EPAM.CSCourse2016.JSONParser.Library
+namespace Sealkeen.CSCourse2016.JSONParser.Core
 {
     public class JString : JSingleValue
     {
@@ -20,6 +20,18 @@ namespace EPAM.CSCourse2016.JSONParser.Library
                 return Convert.ToInt32(Contents.Trim('\"'));
             } catch {
                 return 0;
+            }
+        }
+
+        public override bool Equals(string obj)
+        {
+            if (obj.Trim('\"') == this.Contents.Trim('\"'))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

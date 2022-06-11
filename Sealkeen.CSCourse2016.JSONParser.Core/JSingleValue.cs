@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace EPAM.CSCourse2016.JSONParser.Library
+namespace Sealkeen.CSCourse2016.JSONParser.Core
 {
     public class JSingleValue : JItem
     {
@@ -78,6 +78,19 @@ namespace EPAM.CSCourse2016.JSONParser.Library
                 return false;
             }
         }
+
+        public override bool Equals(string obj)
+        {
+            if (obj == this.Contents)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public override void BuildString(ref StringBuilder builder)
         {
             builder.Append((this as JSingleValue).Contents);

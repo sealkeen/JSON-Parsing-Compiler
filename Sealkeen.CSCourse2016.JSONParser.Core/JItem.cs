@@ -2,18 +2,23 @@
 using System.Text;
 using System.IO;
 
-namespace EPAM.CSCourse2016.JSONParser.Library
+namespace Sealkeen.CSCourse2016.JSONParser.Core
 {
-    //Represents the structure of a JSON document
+    /// <summary>
+    /// Represents the structure of a JSON document.
+    /// </summary>
     public abstract class JItem
     {
-        public List<JItem> Items;
-        public JItem Parent = null;
         public JItem(JItem parent = null)
         {
             Parent = parent;
         }
 
+        public static bool AddIdentityForSerialization { get; set; } = false;
+        public JItem Parent = null;
+        public List<JItem> Items;
+
+        /// <returns>Item's nodes list</returns>
         public virtual List<JItem> Descendants()
         {
             if (Items != null)
@@ -22,11 +27,13 @@ namespace EPAM.CSCourse2016.JSONParser.Library
                 return new List<JItem>();
         }
 
+        /// <returns>Determines whether the item can contain items.</returns>
         public virtual bool IsCollection()
         {
             return false;
         }
 
+        /// <returns>null if node has no items.</returns>
         public JItem FirstNode()
         {
             if(Items != null && Items.Count > 0)
@@ -34,6 +41,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             return null;
         }
 
+        /// <returns>List of all descendant JKeyValuePair nodes.</returns>
         public List<JKeyValuePair> DescendantPairs()
         {
             List<JKeyValuePair> result = new List<JKeyValuePair>();
@@ -49,6 +57,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             return result;
         }
 
+        /// <returns>Get all of the descendant pairs recursively.</returns>
         public List<JKeyValuePair> DescendantPairsRecursive()
         {
             List<JKeyValuePair> result = new List<JKeyValuePair>();
@@ -64,6 +73,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             return result;
         }
 
+        /// <returns>null if the item contains no array recursively</returns>
         public JArray FindFirstArray()
         {
             if (this is JArray)
@@ -75,6 +85,8 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             return null;
         }
 
+        /// <param name="key">Key of the pair to find.</param>
+        /// <returns>null if the key was not found.</returns>
         public JKeyValuePair DescendantPair(string key)
         {
             JString str = new JString(key);
@@ -93,6 +105,10 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             return null;
         }
 
+        /// <summary>
+        /// Overriden. Adding a pair to collection if it is a JCollection;
+        /// </summary>
+        /// <param name="jItem">Items to add.</param>
         public virtual void Add(params JItem[] jItem)
         {
             //TODO: Add body
@@ -151,6 +167,11 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             return this.Parent;
         }
 
+        /// <summary>
+        /// Recursively finds the pair idented by key.
+        /// </summary>
+        /// <param name="key">JKeyValuePair identation.</param>
+        /// <returns></returns>
         public JKeyValuePair FindPairByKey(JSingleValue key)
         {
             if (this.HasKeyOrValue() && this.ContainsKey(key))
@@ -170,6 +191,7 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             }
             return null;
         }
+
 
         public void ListAllPairs(ref List<JItem> nodes)
         {
@@ -197,6 +219,11 @@ namespace EPAM.CSCourse2016.JSONParser.Library
                 jItem.ListAllNodes(ref nodes);
                 nodes.Add(jItem);
             }
+        }
+
+        public virtual bool Equals(string jitem)
+        {
+            return false;
         }
 
         public virtual bool Equals(JItem jitem)
@@ -249,7 +276,11 @@ namespace EPAM.CSCourse2016.JSONParser.Library
                 if (!targetPair.HasKeyOrValue())
                     continue;
                 if (Matched(sourcePairs, targetPair) == 1)
+                {
+                    if (sourcePairs.Count == 1)
+                        return targetPair;
                     matchCount++;
+                }
             }
             if (matchCount == sourcePairs.Count)
                 return this;
@@ -258,7 +289,9 @@ namespace EPAM.CSCourse2016.JSONParser.Library
             {
                 if (!jItem.HasItems())
                     continue;
-                jItem.HasThesePairsRecursive(sourcePairs);
+                var item = jItem.HasThesePairsRecursive(sourcePairs);
+                if (item != null)
+                    return item;
             }
 
             return null;

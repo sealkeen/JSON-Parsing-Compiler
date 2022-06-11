@@ -1,17 +1,13 @@
 ﻿using System.Text;
 
-namespace EPAM.CSCourse2016.JSONParser.Library
+namespace Sealkeen.CSCourse2016.JSONParser.Core
 {
-    public class JArray : JCollection
+    public class JObject : JCollection
     {
-        public override char Delimeter { get { return ','; } }
-        public override string LeftBorder { get { return "["; } }
-        public override string RightBorder { get { return "]"; } }
-        public JArray(JItem parent) : base(parent)
+        public JObject(JItem parent, params JItem[] jItems) : base(parent, jItems)
         {
-
+            
         }
-
         public override void BuildString(ref StringBuilder builder)
         {
             builder.Append(LeftBorder);

@@ -1,6 +1,6 @@
 using NUnit.Framework;
 using System;
-using EPAM.CSCourse2016.JSONParser.Library;
+using Sealkeen.CSCourse2016.JSONParser.Core;
 using System.Diagnostics;
 using System.IO;
 using QueriesClient;

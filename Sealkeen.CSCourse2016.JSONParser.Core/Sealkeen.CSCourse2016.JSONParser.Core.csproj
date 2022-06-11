@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0; netstandard2.1; net40; net45; netcoreapp3.1</TargetFrameworks>
@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <!--<ProjectReference 
-		Include="..\EPAM.CSCourse2016.ParserPerfTester.Common\EPAM.CSCourse2016.ParserPerfTester.Common.csproj"
+		Include="../Sealkeen.CSCourse2016.ParserPerfTester.Common\Sealkeen.CSCourse2016.ParserPerfTester.Common.csproj"
 		/>-->
   </ItemGroup>
 
