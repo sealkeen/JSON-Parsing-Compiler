@@ -1,6 +1,27 @@
 ## Overview
 Linq-to-XML styled project to create static-typed JSON Objects, e.g. - JString and JSingleValue for ("string" and 45).
 
+## Test case. Reading from appSettings.Development.json.
+```C#
+        [Test]
+        public void ParseTest()
+        {
+            JSONParser jSONParser = new JSONParser("O:\\VCSharp\\MediaStreamer.Web\\AuthMVCApplication\\appsettings.Development.json");
+            var jItem = jSONParser.Parse();
+            var logLevel = jItem.FindPairByKey(new JString("LogLevel"));
+            var defaultLogLevel = logLevel.FindPairByKey(new JString("Default"));
+            Debug.WriteLine(jItem); 
+            // {"Logging":{"LogLevel":{"Default":"Information","Microsoft":"Warning","Microsoft.Hosting.Lifetime":"Information"}}}
+            Debug.WriteLine(logLevel); 
+            // "LogLevel":{"Default":"Information","Microsoft":"Warning","Microsoft.Hosting.Lifetime":"Information"}
+            Debug.WriteLine(logLevel.Value); 
+            // {"Default":"Information","Microsoft":"Warning","Microsoft.Hosting.Lifetime":"Information"}
+            Debug.WriteLine(defaultLogLevel); 
+            // "Default":"Information"
+            Debug.WriteLine(defaultLogLevel.Value); 
+            // "Information"
+        }
+```
 ## Test case. Writing.
 ```C#
     [Test]
