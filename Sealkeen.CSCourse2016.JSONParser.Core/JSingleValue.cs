@@ -103,7 +103,7 @@ namespace Sealkeen.CSCourse2016.JSONParser.Core
                 Items = new List<JItem>();
             }
         }
-        public override bool AddPairs(List<JKeyValuePair> items)
+        public override bool AddPairs(IEnumerable<JKeyValuePair> items)
         {
             return false;
         }

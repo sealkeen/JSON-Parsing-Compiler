@@ -308,7 +308,7 @@ namespace Sealkeen.CSCourse2016.JSONParser.Core
             return matchCount;
         }
 
-        public virtual bool AddPairs(List<JKeyValuePair> items)
+        public virtual bool AddPairs(IEnumerable<JKeyValuePair> items)
         {
             foreach (var item in items)
             {

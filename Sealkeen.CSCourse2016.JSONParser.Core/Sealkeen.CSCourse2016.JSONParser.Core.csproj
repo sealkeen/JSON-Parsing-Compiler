@@ -2,6 +2,16 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0; netstandard2.1; net40; net45; netcoreapp3.1</TargetFrameworks>
+    <Description>JSON Parsing complier library that supports creating as serializing JSON objects, learn more at https://github.com/sealkeen/JSON-Parsing-Compiler.</Description>
+    <Authors>Sealkeen</Authors>
+    <Product>JSONParser</Product>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/sealkeen/JSON-Parsing-Compiler</RepositoryUrl>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageTags>JSON, Parser, Compiler</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Title>JSON Parsing Compiler</Title>
+    <Version>1.0.1-beta</Version>
   </PropertyGroup>
 
   <ItemGroup>
