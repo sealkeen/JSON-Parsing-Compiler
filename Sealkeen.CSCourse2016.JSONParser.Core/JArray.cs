@@ -22,5 +22,10 @@ namespace Sealkeen.CSCourse2016.JSONParser.Core
             }
             builder.Append(RightBorder);
         }
+
+        public override JItemType Type
+        {
+            get { return JItemType.Array; }
+        }
     }
 }

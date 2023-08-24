@@ -56,5 +56,10 @@ namespace Sealkeen.CSCourse2016.JSONParser.Core
             }
             return null;
         }
+
+        public override JItemType Type
+        {
+            get { return JItemType.String; }
+        }
     }
 }

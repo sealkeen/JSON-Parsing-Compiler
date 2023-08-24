@@ -9,7 +9,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace EPAM.CSCourse2016.JSONParser.SealkeenJSON
+namespace Sealkeen.CSCourse2016.JSONParser.UI.WPF
 {
     public partial class frmCredits : Form
     {

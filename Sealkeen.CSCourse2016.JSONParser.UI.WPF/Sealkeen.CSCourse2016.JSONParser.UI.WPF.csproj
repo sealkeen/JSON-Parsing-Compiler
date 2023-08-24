@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EPAM.CSCourse2016.SilkinIvan.SealkeenJSON</RootNamespace>
     <AssemblyName>SealkeenJSON</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -112,7 +112,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Sealkeen.CSCourse2016.JSONParser.Core\Sealkeen.CSCourse2016.JSONParser.Core.csproj">
       <Project>{47588d53-ce64-4f97-82c0-6c8c65dabecf}</Project>
-      <Name>EPAM.CSCourse2016.JSONParser.Library</Name>
+      <Name>Sealkeen.CSCourse2016.JSONParser.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

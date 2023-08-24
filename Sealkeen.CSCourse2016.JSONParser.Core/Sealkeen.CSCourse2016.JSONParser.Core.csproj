@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0; netstandard2.1; net40; net45; netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0; netstandard2.1; net40; net48; netcoreapp3.1</TargetFrameworks>
     <Description>JSON Parsing complier library that supports creating as serializing JSON objects, learn more at https://github.com/sealkeen/JSON-Parsing-Compiler.</Description>
     <Authors>Sealkeen</Authors>
     <Product>JSONParser</Product>
@@ -11,7 +11,7 @@
     <PackageTags>JSON, Parser, Compiler</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Title>JSON Parsing Compiler</Title>
-    <Version>1.0.1-beta</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>

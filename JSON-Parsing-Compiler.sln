@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31402.337
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sealkeen.CSCourse2016.ParserPerfTester.Common", "Sealkeen.CSCourse2016.ParserPerfTester.Common\Sealkeen.CSCourse2016.ParserPerfTester.Common.csproj", "{0E6BF52E-F4A2-4A25-AC2C-376D20B03CC6}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueriesClient", "QueriesClient\QueriesClient.csproj", "{DA882293-1794-469C-B814-001D1B73FD20}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sealkeen.CSCourse2016.JSONParser.Core", "Sealkeen.CSCourse2016.JSONParser.Core\Sealkeen.CSCourse2016.JSONParser.Core.csproj", "{47588D53-CE64-4F97-82C0-6C8C65DABECF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sealkeen.CSCourse2016.JSONParser.UI.WPF", "Sealkeen.CSCourse2016.JSONParser.UI.WPF\Sealkeen.CSCourse2016.JSONParser.UI.WPF.csproj", "{9443CABA-5022-4675-95C7-2BFF73AD080B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{47588D53-CE64-4F97-82C0-6C8C65DABECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47588D53-CE64-4F97-82C0-6C8C65DABECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47588D53-CE64-4F97-82C0-6C8C65DABECF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9443CABA-5022-4675-95C7-2BFF73AD080B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9443CABA-5022-4675-95C7-2BFF73AD080B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9443CABA-5022-4675-95C7-2BFF73AD080B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9443CABA-5022-4675-95C7-2BFF73AD080B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

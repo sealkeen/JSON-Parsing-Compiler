@@ -13,9 +13,9 @@ using System.IO;
 using System.Threading;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
-using EPAM.CSCourse2016.JSONParser.Library;
+using Sealkeen.CSCourse2016.JSONParser.Core;
 
-namespace EPAM.CSCourse2016.JSONParser.SealkeenJSON
+namespace Sealkeen.CSCourse2016.JSONParser.UI.WPF
 {
     public partial class frmTest : Form
     {
@@ -25,7 +25,7 @@ namespace EPAM.CSCourse2016.JSONParser.SealkeenJSON
             InitializeComponent();
         }
 
-        EPAM.CSCourse2016.JSONParser.Library.JSONParser sPC = new EPAM.CSCourse2016.JSONParser.Library.JSONParser();
+        Sealkeen.CSCourse2016.JSONParser.Core.JSONParser sPC = new Sealkeen.CSCourse2016.JSONParser.Core.JSONParser();
         JItem currentItem = null;
 
         //Rather testing method
@@ -97,7 +97,8 @@ namespace EPAM.CSCourse2016.JSONParser.SealkeenJSON
         {
             try
             {
-                if (sPC.GetCurrentItem() != null && sPC.GetCurrentItem().HasItems())
+                var currentItem = sPC.GetCurrentItem();
+                if (currentItem != null && currentItem.HasItems())
                 {
                     ThreadStart tS;
                     tS = new ThreadStart(delegate { Application.Run(new Tree((sPC.GetCurrentItem()))); });

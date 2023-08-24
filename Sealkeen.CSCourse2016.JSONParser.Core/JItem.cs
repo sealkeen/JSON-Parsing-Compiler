@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System;
 
 namespace Sealkeen.CSCourse2016.JSONParser.Core
 {
@@ -403,6 +404,16 @@ namespace Sealkeen.CSCourse2016.JSONParser.Core
             JArray result = new JArray(this.Parent);
             result.Items = this.Items;
             return result;
+        }
+
+        public virtual JItemType Type
+        {
+            get { return JItemType.Object; }
+        }
+
+        public virtual JItem GetKey()
+        {
+            throw new NotSupportedException($"Getting key on {Type} is not Supported.");
         }
     }
 }

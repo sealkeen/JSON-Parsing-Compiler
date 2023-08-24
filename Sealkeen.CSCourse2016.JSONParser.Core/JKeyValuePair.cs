@@ -176,5 +176,15 @@ namespace Sealkeen.CSCourse2016.JSONParser.Core
         {
             return false;
         }
+
+        public override JItemType Type
+        {
+            get { return JItemType.KeyValue; }
+        }
+
+        public override JItem GetKey()
+        {
+            return Key;
+        }
     }
 }

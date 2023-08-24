@@ -1,4 +1,4 @@
-﻿namespace EPAM.CSCourse2016.JSONParser.SealkeenJSON
+﻿namespace Sealkeen.CSCourse2016.JSONParser.UI.WPF
 {
     partial class frmCredits
     {

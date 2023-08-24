@@ -110,7 +110,12 @@ namespace Sealkeen.CSCourse2016.JSONParser.Core
 
         public override void Add(params JItem[] jItem)
         {
-            
+
+        }
+
+        public override JItemType Type
+        {
+            get { return JItemType.SingleValue; }
         }
     }
 }
