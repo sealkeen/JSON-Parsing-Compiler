@@ -24,16 +24,21 @@ Linq-to-XML styled project to create static-typed JSON Objects, e.g. - JString a
 ```
 ## Test case. Writing.
 ```C#
-    [Test]
+    [Fact] // for XUnit [Test] //For NUnit
     public void CreateAndOpenJObjectFile()
     {
-        JObject jObject = new JObject(null, new JString("Key"), new JString("Value"));
+        // No parent element so first parameter is null
+        JObject jObject = new JObject(null, 
+            new JKeyValuePair(
+                new JString("Key"), new JString("Value")
+            )
+        );
+
         jObject.SaveToFileAndOpenInNotepad("jKeyValuePair.txt");
-        // jObject.ToFile("filename.txt");
     }
 
     // Result in "jKeyValuePair.txt"
-    // {"Key":"Value"}
+    // {"Key","Value"}
 ```
 
 ## Usage - output:
