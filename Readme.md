@@ -38,7 +38,7 @@ Linq-to-XML styled project to create static-typed JSON Objects, e.g. - JString a
     }
 
     // Result in "jKeyValuePair.txt"
-    // {"Key","Value"}
+    // {"Key":"Value"}
 ```
 
 ## Usage - output:
